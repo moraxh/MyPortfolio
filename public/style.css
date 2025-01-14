@@ -1,0 +1,53 @@
+.animation-fade-in-up {
+  position: relative;
+  animation-name: fadeInUp;
+  animation-delay: 0.2s;
+  animation-duration: 1.5s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: backwards;
+}
+
+.animation-fade-in-down {
+  position: relative;
+  animation-name: fadeInDown;
+  animation-delay: 0.2s;
+  animation-duration: 1.5s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: backwards;
+}
+
+.animation-delay-0-5 {
+  animation-delay: 0.5s;
+}
+
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    top: -50px;
+    filter: blur(5px);
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    top: 0;
+    filter: blur(0px);
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    top: 50px;
+    filter: blur(5px);
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    top: 0;
+    filter: blur(0px);
+  }
+}

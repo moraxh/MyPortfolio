@@ -1,0 +1,26 @@
+---
+const { class: className, ...rest } = Astro.props;
+---
+
+<span class:list={["bg-light -z-10", className]} {...rest}></span>
+
+<style>
+  .bg-light {
+    @apply block w-80 h-80 bg-primary rounded-full fixed;
+    animation-name: fadeInLight;
+    animation-fill-mode: forwards;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+  }
+
+	@keyframes fadeInLight {
+		0% {
+      opacity: 0;
+      filter: blur(100px);
+    }
+		100% {
+      opacity: 0.5;
+      filter: blur(150px);
+    }
+	}
+</style>
