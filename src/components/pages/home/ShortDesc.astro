@@ -1,0 +1,72 @@
+---
+  import StatsCard from "../../common/StatsCard.astro"
+  import { WORKING_SINCE, LOOKING_FOR_JOB, BASE_URL } from "astro:env/server";
+
+  // Get current years 
+  const startDate = new Date((WORKING_SINCE || '').replace(/-/g, "/"));
+  const now = new Date();
+  const diffTime = Math.abs(startDate.getTime() - now.getTime());
+  const diffYears = diffTime / (1000 * 3600 * 24 * 365);
+  const hasDecimal = diffYears % 1 !== 0;
+  const yearsOfExperience = `${hasDecimal ? '+' : ''}${Math.floor(diffYears)}`;
+
+  // Get github stats
+  const response = await fetch(`${BASE_URL}/api/repos.json`)
+  const repos = await response.status === 200 ? await response.json() : null;
+---
+
+<div class="animation-fade-in-up animation-delay-1 flex flex-col justify-center items-center gap-4">
+  <div class="infoCards flex flex-wrap justify-center items-center gap-4">
+    {WORKING_SINCE && (
+      <StatsCard class="bg-secondary" primary={yearsOfExperience} secondary="YEARS OF EXPERIENCE" />
+    )}
+    <StatsCard class="bg-accent" primary="5" secondary="PROFESSIONAL PROJECTS" />
+    {repos && (
+      <StatsCard server:defer class="bg-primary text-bg" primary={repos.length} secondary="GITHUB REPOSITORIES">
+        <StatsCard slot="fallback" class="bg-primary text-bg" primary="~" secondary="GITHUB REPOSITORIES" />
+      </StatsCard>
+    )}
+  </div>
+
+  <div class="flex justify-center items-center gap-2 bg-bg-secondary w-fit py-2 font-semibold px-5 rounded-full">
+
+    {LOOKING_FOR_JOB ? (
+      <>
+        <span class="status-dot status-success"></span>
+        Open to opportunities
+      </>
+    ) : (
+      <>
+        <span class="status-dot status-danger"></span>
+        Not currently available
+      </>
+    )}
+  </div>
+</div>
+
+<style>
+  .status-dot {
+    display: block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    animation: pulse 2.5s infinite;
+    animation-timing-function: ease-in-out;
+    animation-delay: .5s;
+  }
+
+  @keyframes pulse {
+    0% { opacity: 1; }
+    40% { opacity: 0; }
+    80% { opacity: 1; }
+    100% { opacity: 1; } 
+  }
+
+  .status-success {
+    @apply filter-success-drop-shadow bg-success;
+  }
+
+  .status-danger {
+    @apply filter-danger-drop-shadow bg-danger;
+  }
+</style>

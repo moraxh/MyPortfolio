@@ -1,6 +1,7 @@
 ---
-	import Light from "../components/Backlight.astro"
-	import Header from "../components/Header.astro"
+	const { class: className } = Astro.props;
+	import '../styles/global.css';
+	import Backlight from "../components/common/Backlight.astro"
 ---
 
 <!doctype html>
@@ -10,13 +11,11 @@
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		<title>Jorge Mora's Portfolio</title>
-		<link rel="stylesheet" href="/style.css">
 	</head>
-	<body class="bg-transparent">
-		<Header />
+	<body class:list={["bg-transparent", className]}>
 		<slot />
-		<Light class="left-1/2 -translate-x-1/2 -translate-y-3/4" />
-		<Light class="left-1/2 -translate-x-1/2 bottom-0 translate-y-3/4" />
+		<Backlight class="left-1/2 -top-0 -translate-x-1/2 -translate-y-3/4" />
+		<Backlight class="left-1/2 -bottom-0 -translate-x-1/2 translate-y-3/4" />
 	</body>
 </html>
 

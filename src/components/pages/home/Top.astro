@@ -1,0 +1,14 @@
+---
+  import Button from "../../common/Button.astro";
+  import Icon from "../../common/Icon.astro";
+  import { FIGMA_LINK } from "astro:env/server";
+---
+
+<header class="w-full flex items-center justify-end bg-transparent">
+  {FIGMA_LINK && (
+    <Button href={FIGMA_LINK} target="_blank" class:list={["animation-fade-in-up"]}>
+      Figma Design
+      <Icon name="figma" class="stroke-current w-3" />
+    </Button>
+  )}
+</header>

@@ -1,0 +1,75 @@
+<div id="heroTypingWrapper" class="animation-fade-in-up animation-delay-0-5 mt-2 text-3xl font-bold text-center text-balance shadow-textI">
+  I'm a <span id="heroTyping" class="cursor"></span>
+</div>
+
+<style>
+  #heroTypingWrapper {
+    @apply relative;
+    text-shadow: 0 0 5px;
+  }
+
+  @media only screen and (min-width: 590px) {
+    .cursor::after {
+      content: "";
+      position: absolute;
+      height: 1em;
+      @apply bg-bg border-text;
+      border-left: 2px solid;
+      right: -8px;
+      animation: cursor .8s infinite;
+    }
+  }
+
+  @keyframes cursor {
+    0% { @apply border-transparent; }
+    50% { @apply border-text; }
+    100% { @apply border-transparent; }
+  }
+</style>
+
+<script>
+  const heroTyping = document.getElementById('heroTyping');
+
+  // Typing effect
+  if (heroTyping) {
+    const heroTypingTexts = [
+      'Data Scientist and AI Engineer',
+      'Full Stack Developer',
+      'Software Developer',
+    ];
+
+    heroTyping.textContent = heroTypingTexts[0];
+
+    let currentTextIdx = 0;
+
+    const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
+    const deleteText = async (element: HTMLElement, delayMs: number) => {
+      const textArray = Array.from(element.textContent || '');
+      for (let i = textArray.length; i > 0; i--) {
+        element.textContent = textArray.slice(0, i - 1).join('');
+        await delay(delayMs);
+      }
+      element.textContent = ''; // Clear completely
+    };
+
+    const writeText = async (element: HTMLElement, text: string, delayMs: number) => {
+      for (const char of text) {
+        element.textContent += char;
+        await delay(delayMs);
+      }
+    };
+
+    const cycleTexts = async () => {
+      while (true) {
+        await deleteText(heroTyping, 50);
+        currentTextIdx = (currentTextIdx + 1) % heroTypingTexts.length;
+        await delay(200);
+        await writeText(heroTyping, heroTypingTexts[currentTextIdx], 70);
+        await delay(400);
+      }
+    };
+
+    setTimeout(cycleTexts, 2600);
+  }
+</script>

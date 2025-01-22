@@ -1,0 +1,126 @@
+:root {
+  --bg-color: #090F12;
+  --primary-color: #A6C6D0;
+  --accent-color: #746AB0;
+  --secondary-color: #373968;
+  --text-color: #E2EBF0;
+  --success-color: #22C55E;
+  --danger-color: #EF4444;
+  --bg-secondary-color: #131F25;
+}
+
+.animation-fade-in-up,
+.animation-fade-in-down,
+.animation-fade-in-right,
+.animation-fade-in-left {
+  position: relative;
+  animation-delay: 0.2s;
+  animation-duration: 1.5s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: backwards;
+}
+
+/* .animation-fade-in-up {
+  animation-name: fadeInUp;
+}
+
+.animation-fade-in-down {
+  animation-name: fadeInDown;
+}
+
+.animation-fade-in-right {
+  animation-name: fadeInRight;
+}
+
+.animation-fade-in-left {
+  animation-name: fadeInLeft;
+} */
+
+.animation-delay-0-5 {
+  animation-delay: 0.5s;
+}
+
+.animation-delay-1 {
+  animation-delay: 1s;
+}
+
+.animation-delay-1-5 {
+  animation-delay: 1.5s;
+}
+
+.infoCards :first-child {
+  border-bottom-right-radius: 0;
+}
+
+.infoCards :last-child {
+  border-bottom-left-radius: 0;
+}
+
+.infoCards :not(:first-child):not(:last-child) {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    top: -50px;
+    filter: blur(5px);
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    top: 0;
+    filter: blur(0px);
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    top: 50px;
+    filter: blur(5px);
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    top: 0;
+    filter: blur(0px);
+  }
+}
+
+@keyframes fadeInRight {
+  0% {
+    opacity: 0;
+    right: -200px;
+    filter: blur(5px);
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    right: 0;
+    filter: blur(0px);
+  }
+}
+
+@keyframes fadeInLeft {
+  0% {
+    opacity: 0;
+    left: -200px;
+    filter: blur(5px);
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    left: 0;
+    filter: blur(0px);
+  }
+}

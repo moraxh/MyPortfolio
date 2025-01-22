@@ -1,8 +1,25 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Hero from '../components/Hero.astro';
+	import Layout from '../layouts/Layout.astro';
+	import Top from '../components/pages/home/Top.astro';
+	import Hero from '../components/pages/home/Hero.astro';
+	import ShortDesc from '../components/pages/home/ShortDesc.astro';
+	import Projects from '../components/pages/home/Projects.astro';
+	import Contact from '../components/pages/home/Contact.astro';
+
+	export const prerender = true;
 ---
 
-<Layout>
-	<Hero /
+<Layout class="flex flex-col justify-center items-center gap-10">
+	<Top />
+	
+	<Hero />
+
+	<ShortDesc />
+
+	<Projects class="animation-fade-in-left animation-delay-1-5" title="Professional Projects" description="Here are some of the projects that I've made professionally">
+	</Projects>
+
+	<Projects class="animation-fade-in-right animation-delay-1-5" title="Personal Projects" description="Here are some of the projects that I've made for fun and learning" />
+
+	<Contact class="animation-fade-in-up animation-delay-1-5" />
 </Layout>

@@ -1,0 +1,37 @@
+---
+  const { class: className, ...rest } = Astro.props;
+
+  import StatsCard from "../../common/StatsCard.astro";
+  import Icon from "../../common/Icon.astro";
+  import { GITHUB_USERNAME, LINKEDIN, EMAIL } from "astro:env/server";
+---
+
+<div class:list={[
+  className,
+  "flex flex-col itemscenter justify-center gap-3"
+]}>
+  <h2 class="text-5xl font-bold text-center from-primary to-60% to-accent text-transparent bg-gradient-to-b bg-clip-text">
+    Get in touch with me
+  </h2>
+
+  <div onclick="" class="infoCards flex flex-wrap justify-center items-center gap-4">
+
+    {GITHUB_USERNAME && (
+      <StatsCard href={`https://github.com/${GITHUB_USERNAME}`} class="bg-secondary hover:scale-105">
+        <Icon name="github" class="fill-current w-20" />
+      </StatsCard>
+    )}
+
+    {EMAIL && (
+      <StatsCard href={`maito:${EMAIL}`} class="bg-accent hover:scale-105">
+        <Icon name="email" class="fill-current w-20" />
+      </StatsCard>
+    )}
+
+    {LINKEDIN && (
+      <StatsCard href={LINKEDIN} class="bg-secondary hover:scale-105">
+        <Icon name="linkedin" class="fill-current w-20" />
+      </StatsCard>
+    )}
+  </div>
+</div>

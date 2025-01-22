@@ -1,0 +1,21 @@
+---
+  const { primary, secondary, href, class: className, ...rest } = Astro.props;
+---
+
+<a 
+  href={href}
+  target="_blank"
+  class:list={[
+    className,
+    "stats-card flex flex-col justify-center items-center gap-1 p-5 font-bold w-44 text-center rounded-3xl text-pretty aspect-square transition-all"
+  ]}
+  {...rest}
+>
+  {primary && (
+    <span class="text-7xl">{primary}</span>
+  )}
+  {secondary && (
+    <p class="text-lg leading-5">{secondary}</p>
+  )}
+  <slot />
+</a>
