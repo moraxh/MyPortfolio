@@ -1,6 +1,8 @@
 ---
-  import StatsCard from "../../common/StatsCard.astro"
-  import { WORKING_SINCE, LOOKING_FOR_JOB, BASE_URL } from "astro:env/server";
+  import Icon from "../../common/Icon.astro";
+import StatsCard from "../../common/StatsCard.astro"
+  import GithubStats from "./GithubStats.astro";
+  import { WORKING_SINCE, LOOKING_FOR_JOB } from "astro:env/server";
 
   // Get current years 
   const startDate = new Date((WORKING_SINCE || '').replace(/-/g, "/"));
@@ -9,26 +11,26 @@
   const diffYears = diffTime / (1000 * 3600 * 24 * 365);
   const hasDecimal = diffYears % 1 !== 0;
   const yearsOfExperience = `${hasDecimal ? '+' : ''}${Math.floor(diffYears)}`;
-
-  // Get github stats
-  const response = await fetch(`${BASE_URL}/api/repos.json`)
-  const repos = await response.status === 200 ? await response.json() : null;
 ---
 
 <div class="animation-fade-in-up animation-delay-1 flex flex-col justify-center items-center gap-4">
   <div class="infoCards flex flex-wrap justify-center items-center gap-4">
     {WORKING_SINCE && (
-      <StatsCard class="bg-secondary" primary={yearsOfExperience} secondary="YEARS OF EXPERIENCE" />
+      <StatsCard class="!justify-between bg-secondary" primary={yearsOfExperience} secondary="YEARS OF EXPERIENCE" />
     )}
-    <StatsCard class="bg-accent" primary="5" secondary="PROFESSIONAL PROJECTS" />
-    {repos && (
-      <StatsCard server:defer class="bg-primary text-bg" primary={repos.length} secondary="GITHUB REPOSITORIES">
-        <StatsCard slot="fallback" class="bg-primary text-bg" primary="~" secondary="GITHUB REPOSITORIES" />
+    <StatsCard class="!justify-between bg-accent" primary="5" secondary="PROFESSIONAL PROJECTS" />
+
+    <GithubStats server:defer>
+      <StatsCard slot="fallback" class="!justify-between bg-primary text-bg">
+        <span class="text-7xl">
+          <Icon name='spinner' class='w-16 h-16 fill-black animate-spin' />
+        </span>
+        <p class="text-lg leading-5">GITHUB REPOSITORIES</p>
       </StatsCard>
-    )}
+    </GithubStats>
   </div>
 
-  <div class="flex justify-center items-center gap-2 bg-bg-secondary w-fit py-2 font-semibold px-5 rounded-full">
+  <div class="border-[0.5px] border-white/10 flex justify-center items-center gap-2 bg-bg-secondary w-fit py-2 font-semibold px-5 rounded-full">
 
     {LOOKING_FOR_JOB ? (
       <>
