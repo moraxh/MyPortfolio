@@ -9,7 +9,6 @@ export default defineConfig({
   integrations: [tailwind()],
   env: {
     schema: {
-      BASE_URL: envField.string({ context:'server', access:'public' }),
       GITHUB_USERNAME: envField.string({ context: 'server', access: 'public' }),
       FIGMA_LINK: envField.string({ context: 'server', access: 'public' }),
       LOOKING_FOR_JOB: envField.boolean({ default: true, context: 'server', access: 'public' }),
