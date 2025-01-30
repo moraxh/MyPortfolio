@@ -6,6 +6,7 @@
   --text-color: #E2EBF0;
   --success-color: #22C55E;
   --danger-color: #EF4444;
+  --placeholder-color: #292929;
   --bg-secondary-color: #131F25;
 }
 
@@ -48,17 +49,33 @@
   animation-delay: 1.5s;
 }
 
-.infoCards :first-child {
+.infoCards > .stats-card:first-of-type {
   border-bottom-right-radius: 0;
 }
 
-.infoCards :last-child {
+.infoCards > .stats-card:last-of-type {
   border-bottom-left-radius: 0;
 }
 
-.infoCards :not(:first-child):not(:last-child) {
+.infoCards > .stats-card:not(:first-of-type).stats-card:not(:last-of-type) {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
+}
+
+/* Scrollbar */
+/* width */
+::-webkit-scrollbar {
+  @apply w-2.5;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  @apply bg-bg border-solid border-2 border-white/10 rounded-full;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  @apply bg-primary rounded-full;
 }
 
 @keyframes fadeInDown {

@@ -11,6 +11,7 @@ export default {
 				'text': 'var(--text-color, #E2EBF0)',
 				'success': 'var(--success-color, #22C55E)',
 				'danger': 'var(--danger-color, #FF0000)',
+				'placeholder': 'var(--placeholder-color, #292929)',
 				'bg-secondary': 'var(--bg-secondary-color, #131F25)',
 			},
 			fontFamily: {
