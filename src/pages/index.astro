@@ -1,11 +1,14 @@
 ---
-	import Layout from '../layouts/Layout.astro';
-	import Top from '../components/pages/home/Top.astro';
-	import Hero from '../components/pages/home/Hero.astro';
-	import ShortDesc from '../components/pages/home/ShortDesc.astro';
-	import Projects from '../components/pages/home/Projects.astro';
-	import Contact from '../components/pages/home/Contact.astro';
+	import Layout from '../layouts/Layout.astro'
+	import Top from '../components/pages/home/Top.astro'
+	import Hero from '../components/pages/home/Hero.astro'
+	import ShortDesc from '../components/pages/home/ShortDesc.astro'
+	import Projects from '../components/pages/home/Projects.astro'
+	import ProjectCard from '../components/common/ProjectCard.astro'
+	import Contact from '../components/pages/home/Contact.astro'
+	import { getCollection } from 'astro:content'
 
+	const projects = await getCollection('projects');
 	export const prerender = true;
 ---
 
@@ -17,9 +20,19 @@
 	<ShortDesc />
 
 	<Projects class="animation-fade-in-left animation-delay-1-5" title="Professional Projects" description="Here are some of the projects that I've made professionally">
+		<ProjectCard name="hola" tech="php, laravel, bootstrap, firebase, jquery" stars="7" githubName="hola" />
+		<ProjectCard name="hola" tech="php, laravel, bootstrap, firebase, jquery" stars="7" githubName="hola" />
+		<ProjectCard name="hola" tech="php, laravel, bootstrap, firebase, jquery" stars="7" githubName="hola" />
+		<ProjectCard name="hola" tech="php, laravel, bootstrap, firebase, jquery" stars="7" githubName="hola" />
+		<ProjectCard name="hola" tech="php, laravel, bootstrap, firebase, jquery" stars="7" githubName="hola" />
+		<ProjectCard name="hola" tech="php, laravel, bootstrap, firebase, jquery" stars="7" githubName="hola" />
 	</Projects>
 
-	<Projects class="animation-fade-in-right animation-delay-1-5" title="Personal Projects" description="Here are some of the projects that I've made for fun and learning" />
+	<Projects class="animation-fade-in-right animation-delay-1-5" title="Personal Projects" description="Here are some of the projects that I've made for fun and learning" >
+		<ProjectCard name="hola" tech="php, laravel, bootstrap, firebase, jquery" stars="7" githubName="hola" />
+		<ProjectCard name="hola" tech="php, laravel, bootstrap, firebase, jquery" stars="7" githubName="hola" />
+		<ProjectCard name="hola" tech="php, laravel, bootstrap, firebase, jquery" stars="7" githubName="hola" />
+	</Projects>
 
 	<Contact class="animation-fade-in-up animation-delay-1-5" />
 </Layout>

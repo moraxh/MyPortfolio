@@ -1,0 +1,35 @@
+---
+const { name, tech, stars, githubName, placeholder, ...rest } = Astro.props;
+---
+
+<div
+  class="border border-placeholder flex flex-col items-start justify-center gap-2 w-64 p-4 bg-bg rounded-xl"
+>
+  {
+    placeholder ? (
+      ""
+    ) : (
+      <>
+        <span class="bg-placeholder w-full aspect-[241/111] rounded-lg" />
+        <span class="bg-placeholder w-[80%] h-4 rounded-full" />
+        <div
+          class="flex justify-start items-center gap-2"
+          id="tech-placeholder"
+        >
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+        </div>
+      </>
+    )
+  }
+</div>
+
+<style>
+  #tech-placeholder > span {
+    @apply aspect-square w-5 rounded-full bg-placeholder;
+  }
+</style>
