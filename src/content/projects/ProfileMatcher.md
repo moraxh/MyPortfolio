@@ -9,5 +9,6 @@ tech:
   - html
   - css
 isProfessional: false
+thumbnail: ProfileMatcher/thumbnail.png
 ---
 Profile Matcher

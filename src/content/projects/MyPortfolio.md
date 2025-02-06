@@ -7,4 +7,5 @@ tech:
   - figma
   - javascript
 isProfessional: false
+thumbnail: MyPortfolio/thumbnail.png
 ---

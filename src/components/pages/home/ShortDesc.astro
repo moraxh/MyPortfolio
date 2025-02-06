@@ -1,8 +1,9 @@
 ---
   import Icon from "../../common/Icon.astro";
-import StatsCard from "../../common/StatsCard.astro"
+  import StatsCard from "../../common/StatsCard.astro"
   import GithubStats from "./GithubStats.astro";
   import { WORKING_SINCE, LOOKING_FOR_JOB } from "astro:env/server";
+  import { getCollection } from 'astro:content'
 
   // Get current years 
   const startDate = new Date((WORKING_SINCE || '').replace(/-/g, "/"));
@@ -11,6 +12,9 @@ import StatsCard from "../../common/StatsCard.astro"
   const diffYears = diffTime / (1000 * 3600 * 24 * 365);
   const hasDecimal = diffYears % 1 !== 0;
   const yearsOfExperience = `${hasDecimal ? '+' : ''}${Math.floor(diffYears)}`;
+
+  const projects = await getCollection('projects')
+  const professionalProjects = projects.filter(p => p.data.isProfessional)
 ---
 
 <div class="animation-fade-in-up animation-delay-1 flex flex-col justify-center items-center gap-4">
@@ -18,7 +22,10 @@ import StatsCard from "../../common/StatsCard.astro"
     {WORKING_SINCE && (
       <StatsCard class="!justify-between bg-secondary" primary={yearsOfExperience} secondary="YEARS OF EXPERIENCE" />
     )}
-    <StatsCard class="!justify-between bg-accent" primary="5" secondary="PROFESSIONAL PROJECTS" />
+  
+    {professionalProjects.length > 0 && (
+      <StatsCard class="!justify-between bg-accent" primary={professionalProjects.length} secondary="PROFESSIONAL PROJECTS" />
+    )}
 
     <GithubStats server:defer>
       <StatsCard slot="fallback" class="!justify-between bg-primary text-bg">
@@ -30,7 +37,8 @@ import StatsCard from "../../common/StatsCard.astro"
     </GithubStats>
   </div>
 
-  <div class="border-[0.5px] border-white/10 flex justify-center items-center gap-2 bg-bg-secondary w-fit py-2 font-semibold px-5 rounded-full">
+  <div data-glow style="--radius: 20000" class="border-[0.5px] border-white/10 flex justify-center items-center gap-2 bg-bg-secondary w-fit py-2 font-semibold px-5 rounded-full">
+    <div data-glow></div>
 
     {LOOKING_FOR_JOB ? (
       <>

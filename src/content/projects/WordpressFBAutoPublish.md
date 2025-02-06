@@ -4,5 +4,6 @@ description: A highly customizable WordPress plugin that automatically publishes
 tech: 
   - php
 isProfessional: true
+thumbnail: WordpressFBAutoPublish/thumbnail.png
 ---
 WP FB Auto Publish

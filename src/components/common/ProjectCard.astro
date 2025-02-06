@@ -1,34 +1,56 @@
 ---
-const { name, tech, stars, githubName, placeholder, ...rest } = Astro.props;
+const { name, tech, stars, githubName, thumbnail = "default.png", placeholder = false, ...rest } = Astro.props;
+
+import type { ImageMetadata } from 'astro';
+import TechList from "./TechList.astro";
+import { Image } from "astro:assets";
+
+const images: Record<string, { default: ImageMetadata}> = import.meta.glob("../../assets/ProjectsImages/**/*", { eager: true });
+const image = images[`../../assets/ProjectsImages/${thumbnail}`]?.default || images[`../../assets/ProjectsImages/default.png`].default
+
 ---
 
 <div
-  class="border border-placeholder flex flex-col items-start justify-center gap-2 w-64 p-4 bg-bg rounded-xl"
+  data-glow
+  class="border border-placeholder flex flex-col items-start justify-center gap-2 w-64 p-4 bg-bg rounded-xl hover:brightness-[115%] hover:cursor-pointer"
+  {...rest}
 >
+  <div data-glow></div>
+  <slot />
+  {!placeholder && (
+    <>
+      <Image class="rounded-md brightness-[85%]" src={image} alt="thumbnail" />
+      <p class="font-bold text-text">{name}</p>
+      <div class="flex flex-wrap gap-2 items-center max-w-[80%]">
+        <TechList class="min-h-5 !h-5 min-w-5 !w-5" tech={tech} />
+      </div>
+    </>
+  )}
+  {placeholder && (
+    <>
+      <span class="project-card-image bg-placeholder rounded-md" />
+      <span class="bg-placeholder w-[80%] h-4 rounded-full" />
+      <div
+        class="flex justify-start items-center gap-2"
+        id="tech-placeholder"
+      >
+        <span />
+        <span />
+        <span />
+        <span />
+        <span />
+        <span />
+      </div>
+    </>
+  )}
   {
-    placeholder ? (
-      ""
-    ) : (
-      <>
-        <span class="bg-placeholder w-full aspect-[241/111] rounded-lg" />
-        <span class="bg-placeholder w-[80%] h-4 rounded-full" />
-        <div
-          class="flex justify-start items-center gap-2"
-          id="tech-placeholder"
-        >
-          <span />
-          <span />
-          <span />
-          <span />
-          <span />
-          <span />
-        </div>
-      </>
-    )
-  }
 </div>
 
 <style>
+  .project-card-image {
+    @apply aspect-[241/111] w-full;
+  }
+
   #tech-placeholder > span {
     @apply aspect-square w-5 rounded-full bg-placeholder;
   }

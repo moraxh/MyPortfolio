@@ -10,6 +10,19 @@
   --bg-secondary-color: #131F25;
 }
 
+* {
+  @apply duration-300 transition-all;
+}
+
+html {
+  @apply bg-bg text-text;
+}
+
+body {
+  @apply m-7 overflow-x-hidden;
+  min-height: 100vh;
+}
+
 .animation-fade-in-up,
 .animation-fade-in-down,
 .animation-fade-in-right,
@@ -65,12 +78,12 @@
 /* Scrollbar */
 /* width */
 ::-webkit-scrollbar {
-  @apply w-2.5;
+  @apply w-2 h-2;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-  @apply bg-bg border-solid border-2 border-white/10 rounded-full;
+  @apply bg-bg border-solid border border-white/10 rounded-full;
 }
 
 /* Handle */

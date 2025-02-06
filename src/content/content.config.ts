@@ -6,7 +6,8 @@ const projects = defineCollection({
     description: z.string(),
     tech: z.array(z.string()),
     isProfessional: z.boolean(),
-    githubName: z.string().nullable()
+    githubName: z.string().nullable(),
+    thumbnail: z.string().nullable()
   })
 })
 

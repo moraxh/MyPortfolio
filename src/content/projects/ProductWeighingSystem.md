@@ -8,4 +8,5 @@ tech:
   - figma
   - javascript
 isProfessional: true
+thumbnail: ProductWeighingSystem/thumbnail.png
 ---

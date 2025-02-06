@@ -1,0 +1,36 @@
+---
+  const { name, class: className, ...rest } = Astro.props;
+
+  import { Image } from "astro:assets"
+
+  const icon = await import(`../../assets/TechIcons/${name}.svg`).catch(e => null)
+
+  const titleName: Record<string, string> = {
+    "astro"     : "Astro",
+    "bootstrap" : "Bootstrap 5",
+    "c"         : "C",
+    "css"       : "CSS",
+    "docker"    : "Docker",
+    "electron"  : "Electron",
+    "figma"     : "Figma",
+    "firebase"  : "Firebase",
+    "html"      : "HTML",
+    "javascript": "Javascript",
+    "jquery"    : "JQuery",
+    "laravel"   : "Laravel",
+    "mongo"     : "MongoDB",
+    "node"      : "NodeJS",
+    "php"       : "PHP",
+    "python"    : "Python",
+    "tailwind"  : "TailwindCSS",
+  }
+---
+
+{icon ? (
+  <span class="relative">
+    <Image class:list={['z-20 relative', className]} src={icon.default} alt={name} title={name in titleName ? titleName[name] : name} />
+    <Image class:list={['absolute top-0 blur-sm z-10 opacity-60', className]} src={icon.default} alt={name} />
+  </span>
+) : (
+  <p>Icon not Found</p>
+)}

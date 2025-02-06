@@ -1,0 +1,79 @@
+---
+  import TechIcon from "./TechIcon.astro"
+
+  const { class: className, tech, ...rest } = Astro.props
+
+  const technologies: Record<string, string[]> = {
+    "astro"     : ["astro"],
+    "bootstrap" : ["bootstrap"],
+    "c"         : ["c"],
+    "css"       : ["css"],
+    "docker"    : ["docker"],
+    "electron"  : ["electron"],
+    "figma"     : ["figma"],
+    "firebase"  : ["firebase"],
+    "html"      : ["html"],
+    "javascript": ["js", "javascript"],
+    "jquery"    : ["jquery"],
+    "laravel"   : ["laravel", "laravel-php"],
+    "mongo"     : ["mongo", "mongodb"],
+    "node"      : ["nodejs", "node"],
+    "php"       : ["php"],
+    "python"    : ["python"],
+    "tailwind"  : ["tailwind", "tailwindcss"],
+  }
+
+  const sortOrder = [
+    "astro",    
+    "laravel",  
+    "firebase", 
+    "mongo",    
+    "node",     
+    "electron", 
+    "tailwind", 
+    "bootstrap",
+    "jquery",   
+    "docker",   
+    "figma",    
+    "c",        
+    "python",   
+    "php",      
+    "html",     
+    "css",      
+    "javascript",
+  ]
+
+  const techsProcessed = Array.from(tech).map(t => {
+    const tLower = String(t).toLocaleLowerCase()
+
+    for (const key of Object.keys(technologies)) {
+      if (technologies[key].includes(tLower)) {
+        return key
+      }
+    }
+
+    return tLower
+  })
+
+  // Sort
+  techsProcessed.sort((a, b) => {
+    const aIndex = sortOrder.indexOf(a)
+    const bIndex = sortOrder.indexOf(b)
+
+    if (aIndex === -1 || bIndex === -1) {
+      return 0
+    }
+
+    return aIndex - bIndex
+  })
+---
+
+{[...new Set(techsProcessed)].map(tech => (
+  <TechIcon
+    name={tech}
+    class:list={[
+      "w-10 h-10 object-contain",
+      className
+    ]}
+  />
+))}

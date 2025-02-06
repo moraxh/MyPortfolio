@@ -8,13 +8,7 @@
   ]} {...rest}>
   <h2 class="text-5xl font-bold text-center from-primary to-60% to-accent text-transparent bg-gradient-to-b bg-clip-text">{title}</h2>
   <h4 class="text-lg font-bold text-center text-balance">{description}</h4>
-  <div class="grid grid-cols-[repeat(auto-fill,minmax(256px,1fr))] justify-items-center justify-center items-center gap-3 bg-bg-secondary p-6 rounded-xl mt-3 w-full max-w-[860px] max-h-[450px] overflow-y-auto">
+  <div class="grid grid-cols-[repeat(auto-fill,minmax(256px,1fr))] justify-items-center justify-center items-start gap-3 bg-bg-secondary p-6 rounded-xl mt-3 w-full max-w-[860px] max-h-[460px] overflow-y-auto border-2 border-placeholder">
     <slot />
   </div>
 </article>
-
-<style>
-  div {
-    box-shadow: 0px 0px 10px var(--primary-color);
-  }
-</style>

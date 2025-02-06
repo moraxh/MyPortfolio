@@ -4,5 +4,6 @@ description: A fork of RomySaputraSihananda's tiktok comments scrapper with the 
 tech: 
   - python
 isProfessional: false
+thumbnail: TikTokCommentScrapper/thumbnail.png
 ---
 TikTok Comment Scrapper
