@@ -9,10 +9,9 @@ const images: Record<string, { default: ImageMetadata}> = import.meta.glob("../.
 const image = images[`../../assets/ProjectsImages/${thumbnail}`]?.default || images[`../../assets/ProjectsImages/default.png`].default
 
 ---
-
 <div
   data-glow
-  class="border border-placeholder flex flex-col items-start justify-center gap-2 w-64 p-4 bg-bg rounded-xl hover:brightness-[115%] hover:cursor-pointer"
+  class="border border-placeholder flex flex-col items-start justify-center gap-2 w-64 p-4 bg-bg rounded-xl hover:brightness-75 duration-100 hover:cursor-pointer"
   {...rest}
 >
   <div data-glow></div>

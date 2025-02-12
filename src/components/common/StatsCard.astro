@@ -7,15 +7,15 @@
   target="_blank"
   class:list={[
     className,
-    "stats-card flex flex-col justify-center items-center p-5 py-7 font-bold w-44 text-center rounded-3xl text-pretty aspect-square"
+    "stats-card flex flex-col justify-center items-center p-5 py-7 font-bold w-44 xl:w-[12.5rem] text-center rounded-3xl text-pretty aspect-square"
   ]}
   {...rest}
 >
   {primary && (
-    <span class="text-7xl">{primary}</span>
+    <span class="text-7xl xl:text-8xl">{primary}</span>
   )}
   {secondary && (
-    <p class="text-lg leading-5">{secondary}</p>
+    <p class="text-lg xl:text-xl leading-5">{secondary}</p>
   )}
   <slot />
 </a>

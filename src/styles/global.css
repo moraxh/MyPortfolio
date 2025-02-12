@@ -12,6 +12,8 @@
   --color-bg-secondary: #131F25;
 
   --font-sans: "Inter", sans-serif;
+
+  --breakpoint-xs: 425px;
 }
 
 @utility filter-success-drop-shadow {
