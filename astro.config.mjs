@@ -1,12 +1,13 @@
 // @ts-check
 import { defineConfig, envField } from 'astro/config';
 
-import tailwind from '@astrojs/tailwind';
+import tailwindcss from '@tailwindcss/vite';
 
-// https://astro.build/config
 export default defineConfig({
   output: 'server',
-  integrations: [tailwind()],
+  vite: {
+    plugins: [tailwindcss()],
+  },
   env: {
     schema: {
       GITHUB_USERNAME: envField.string({ context: 'server', access: 'public' }),
@@ -16,5 +17,5 @@ export default defineConfig({
       EMAIL: envField.string({ context: 'server', access: 'public' }),
       LINKEDIN: envField.string({ context: 'server', access: 'public' }),
     }
-  }
+  },
 });

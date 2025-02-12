@@ -1,13 +1,25 @@
-:root {
-  --bg-color: #090F12;
-  --primary-color: #A6C6D0;
-  --accent-color: #746AB0;
-  --secondary-color: #373968;
-  --text-color: #E2EBF0;
-  --success-color: #22C55E;
-  --danger-color: #EF4444;
-  --placeholder-color: #292929;
-  --bg-secondary-color: #131F25;
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #090F12;
+  --color-primary: #A6C6D0;
+  --color-accent: #746AB0;
+  --color-secondary: #373968;
+  --color-text: #E2EBF0;
+  --color-success: #22C55E;
+  --color-danger: #EF4444;
+  --color-placeholder: #292929;
+  --color-bg-secondary: #131F25;
+
+  --font-sans: "Inter", sans-serif;
+}
+
+@utility filter-success-drop-shadow {
+  filter: drop-shadow(0 0 10px var(--color-success));
+}
+
+@utility filter-danger-drop-shadow {
+  filter: drop-shadow(0 0 10px var(--color-danger));
 }
 
 * {

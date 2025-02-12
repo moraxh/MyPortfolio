@@ -3,6 +3,8 @@
 </div>
 
 <style>
+  @reference "../../../styles/global.css";
+
   #heroTypingWrapper {
     @apply relative;
     text-shadow: 0 0 5px;
@@ -21,9 +23,9 @@
   }
 
   @keyframes cursor {
-    0% { @apply border-transparent; }
-    50% { @apply border-text; }
-    100% { @apply border-transparent; }
+    0% { border-color: transparent }
+    50% { border-color: var(--color-text) }
+    100% { border-color: transparent }
   }
 </style>
 
