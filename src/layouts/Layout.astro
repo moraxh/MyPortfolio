@@ -2,8 +2,8 @@
 	const { class: className } = Astro.props;
 	import '../styles/global.css';
 	import Backlight from "../components/common/Backlight.astro"
-	import  SpeedInsights  from "@vercel/speed-insights/astro"
-	import Analytics from '@vercel/analytics/astro'
+	// import  SpeedInsights  from "@vercel/speed-insights/astro"
+	// import Analytics from '@vercel/analytics/astro'
 ---
 
 <!doctype html>
@@ -15,11 +15,11 @@
 		<meta name="generator" content={Astro.generator} />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<title>Jorge Mora's Portfolio</title>
-		<Analytics />
-		<SpeedInsights />
 	</head>
 	<body class:list={["bg-transparent relative", className]}>
 		<slot />
 		<Backlight class="absolute left-1/2 -top-0 -translate-x-1/2 -translate-y-3/4" />
 	</body>
+	<!-- <Analytics />
+	<SpeedInsights /> -->
 </html>

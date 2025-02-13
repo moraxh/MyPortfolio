@@ -29,19 +29,19 @@
 
 	<ShortDesc />
 
-	<Projects class="animation-fade-in-left animation-delay-1-5" title="Professional Projects" description="Here are some of the projects that I've made professionally">
+	<Projects class="animation-fade-in " title="Professional Projects" description="Here are some of the projects that I've made professionally">
 		{professionalProjects.map(project => (
 			<ProjectCard id={project.id} name={project.data.name} tech={project.data.tech} thumbnail={project.data.thumbnail} githubName={project.data.githubName}/>
 		))}
 	</Projects>
 
-	<Projects class="animation-fade-in-right animation-delay-1-5" title="Personal Projects" description="Here are some of the projects that I've made for fun and learning" >
+	<Projects class="animation-fade-in " title="Personal Projects" description="Here are some of the projects that I've made for fun and learning" >
 		{nonProfessionalProjects.map(project => (
 			<ProjectCard id={project.id} name={project.data.name} tech={project.data.tech} thumbnail={project.data.thumbnail}  githubName={project.data.githubName}/>
 		))}
 	</Projects>
 
-	<Contact class="animation-fade-in-up animation-delay-1-5" />
+	<Contact class="animation-fade-in " />
 </Layout>
 
 <script>

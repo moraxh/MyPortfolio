@@ -33,43 +33,13 @@ body {
   min-height: 100vh;
 }
 
-.animation-fade-in-up,
-.animation-fade-in-down,
-.animation-fade-in-right,
-.animation-fade-in-left {
+.animation-fade-in {
   position: relative;
   animation-delay: 0.2s;
-  animation-duration: 1.5s;
+  animation-duration: 1s;
   animation-timing-function: ease-in-out;
   animation-fill-mode: backwards;
-}
-
-.animation-fade-in-up {
-  animation-name: fadeInUp;
-}
-
-.animation-fade-in-down {
-  animation-name: fadeInDown;
-}
-
-.animation-fade-in-right {
-  animation-name: fadeInRight;
-}
-
-.animation-fade-in-left {
-  animation-name: fadeInLeft;
-}
-
-.animation-delay-0-5 {
-  animation-delay: 0.5s;
-}
-
-.animation-delay-1 {
-  animation-delay: 1s;
-}
-
-.animation-delay-1-5 {
-  animation-delay: 1.5s;
+  animation-name: fadeIn;
 }
 
 .infoCards > .stats-card:first-of-type {
@@ -105,10 +75,9 @@ body {
   @apply bg-primary rounded-full;
 }
 
-@keyframes fadeInDown {
+@keyframes fadeIn {
   0% {
     opacity: 0;
-    top: -50px;
     filter: blur(5px);
   }
   50% {
@@ -116,55 +85,6 @@ body {
   }
   100% {
     opacity: 1;
-    top: 0;
-    filter: blur(0px);
-  }
-}
-
-@keyframes fadeInUp {
-  0% {
-    opacity: 0;
-    top: 50px;
-    filter: blur(5px);
-  }
-  50% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-    top: 0;
-    filter: blur(0px);
-  }
-}
-
-@keyframes fadeInRight {
-  0% {
-    opacity: 0;
-    right: -200px;
-    filter: blur(5px);
-  }
-  50% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-    right: 0;
-    filter: blur(0px);
-  }
-}
-
-@keyframes fadeInLeft {
-  0% {
-    opacity: 0;
-    left: -200px;
-    filter: blur(5px);
-  }
-  50% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-    left: 0;
     filter: blur(0px);
   }
 }
