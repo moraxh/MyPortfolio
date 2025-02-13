@@ -2,6 +2,7 @@
 	const { class: className } = Astro.props;
 	import '../styles/global.css';
 	import Backlight from "../components/common/Backlight.astro"
+	import  SpeedInsights  from "@vercel/speed-insights/astro"
 	import Analytics from '@vercel/analytics/astro'
 ---
 
@@ -15,6 +16,7 @@
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<title>Jorge Mora's Portfolio</title>
 		<Analytics />
+		<SpeedInsights />
 	</head>
 	<body class:list={["bg-transparent relative", className]}>
 		<slot />
