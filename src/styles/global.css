@@ -24,10 +24,6 @@
   filter: drop-shadow(0 0 10px var(--color-danger));
 }
 
-* {
-  @apply duration-300 transition-all;
-}
-
 html {
   @apply bg-bg text-text;
 }
@@ -48,7 +44,7 @@ body {
   animation-fill-mode: backwards;
 }
 
-/* .animation-fade-in-up {
+.animation-fade-in-up {
   animation-name: fadeInUp;
 }
 
@@ -62,7 +58,7 @@ body {
 
 .animation-fade-in-left {
   animation-name: fadeInLeft;
-} */
+}
 
 .animation-delay-0-5 {
   animation-delay: 0.5s;
