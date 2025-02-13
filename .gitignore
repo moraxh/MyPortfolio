@@ -25,6 +25,8 @@ pnpm-debug.log*
 
 .vscode
 
+.vercel
+
 .cache
 
 TODO.md
