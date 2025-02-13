@@ -1,11 +1,10 @@
 ---
-const { name, tech, stars, githubName, thumbnail = "default.png", placeholder = false, ...rest } = Astro.props;
+const { name, tech, stars = 0, githubName, thumbnail = "default.png", placeholder = false, ...rest } = Astro.props;
 
 import type { ImageMetadata } from 'astro';
 import { Image } from "astro:assets";
 import TechList from "./TechList.astro";
 import Icon from './Icon.astro';
-import GithubStars from '@components/pages/home/GithubStars.astro';
 
 import { GITHUB_USERNAME } from 'astro:env/server';
 
@@ -23,7 +22,7 @@ const image = images[`../../assets/ProjectsImages/${thumbnail}`]?.default || ima
   <slot />
   {!placeholder && (
     <>
-      <Image class="rounded-md brightness-[85%] w-full h-32 object-cover border border-placeholder" src={image} alt="thumbnail" />
+      <Image class="rounded-md brightness-[85%] w-full h-32 object-cover border border-placeholder" loading="lazy" src={image} alt="thumbnail" />
       <p class="font-bold text-text">{name}</p>
       <section class="flex justify-between gap-3 w-full max-w-full">
         <div class="tech-list flex overflow-x-hidden max-w-full">
@@ -31,11 +30,14 @@ const image = images[`../../assets/ProjectsImages/${thumbnail}`]?.default || ima
             <TechList class="min-h-5 !h-5 min-w-5 !w-5" tech={tech} />
           </div>
         </div>
-        {(stars || githubName) && (
+        {(stars > 0 || githubName) && (
           <div class="flex items-center gap-2">
-            <GithubStars server:defer githubName={githubName}>
-              <GithubStars placeholder slot="fallback"/>
-            </GithubStars>
+            {(stars > 0) && (
+              <span class="flex items-baseline gap-0.5">
+                <p class="leading-[13px] text-text/50 ">{stars}</p>
+                <Icon name="star" class="w-auto h-[14px] fill-text/50" />
+              </span>
+            )}
             {(githubName) && (
               <a target="_blank" href={`https://github.com/${GITHUB_USERNAME}/${githubName}`} class="github-button flex items-center gap-1.5 px-2 py-1.5 bg-secondary text-text rounded-lg font-semibold hover:brightness-150" href="">
                 <Icon name="github" class="fill-text h-5 w-auto" />

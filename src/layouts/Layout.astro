@@ -2,8 +2,8 @@
 	const { class: className } = Astro.props;
 	import '../styles/global.css';
 	import Backlight from "../components/common/Backlight.astro"
-	// import  SpeedInsights  from "@vercel/speed-insights/astro"
-	// import Analytics from '@vercel/analytics/astro'
+	import  SpeedInsights  from "@vercel/speed-insights/astro"
+	import Analytics from '@vercel/analytics/astro'
 ---
 
 <!doctype html>
@@ -20,6 +20,6 @@
 		<slot />
 		<Backlight class="absolute left-1/2 -top-0 -translate-x-1/2 -translate-y-3/4" />
 	</body>
-	<!-- <Analytics />
-	<SpeedInsights /> -->
+	<Analytics />
+	<SpeedInsights />
 </html>

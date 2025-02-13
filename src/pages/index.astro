@@ -20,7 +20,8 @@
 	const professionalProjects = projects.filter(p => p.data.isProfessional)
 	const nonProfessionalProjects = projects.filter(p => !p.data.isProfessional)
 
-	export const prerender = true;
+	const reposResponse = await fetch(`${Astro.url.origin}/api/repos.json`);
+	const repos: { html_url: string, stargazers_count: number }[] | Array<never> = reposResponse.ok ? await reposResponse.json() : [];
 ---
 <Layout class="flex flex-col justify-center items-center gap-10">
 	<Top />
@@ -31,13 +32,27 @@
 
 	<Projects class="animation-fade-in " title="Professional Projects" description="Here are some of the projects that I've made professionally">
 		{professionalProjects.map(project => (
-			<ProjectCard id={project.id} name={project.data.name} tech={project.data.tech} thumbnail={project.data.thumbnail} githubName={project.data.githubName}/>
+			<ProjectCard 
+				id={project.id}
+				name={project.data.name} 
+				tech={project.data.tech}
+				thumbnail={project.data.thumbnail}
+				githubName={project.data.githubName}
+				stars={project.data.githubName ? repos.find(repo => repo.html_url.includes(project.data.githubName || String(null)))?.stargazers_count || 0 : 0}
+			/>
 		))}
 	</Projects>
 
 	<Projects class="animation-fade-in " title="Personal Projects" description="Here are some of the projects that I've made for fun and learning" >
 		{nonProfessionalProjects.map(project => (
-			<ProjectCard id={project.id} name={project.data.name} tech={project.data.tech} thumbnail={project.data.thumbnail}  githubName={project.data.githubName}/>
+			<ProjectCard 
+				id={project.id}
+				name={project.data.name} 
+				tech={project.data.tech}
+				thumbnail={project.data.thumbnail}
+				githubName={project.data.githubName}
+				stars={project.data.githubName ? repos.find(repo => repo.html_url.includes(project.data.githubName || String(null)))?.stargazers_count || 0 : 0}
+			/>
 		))}
 	</Projects>
 
