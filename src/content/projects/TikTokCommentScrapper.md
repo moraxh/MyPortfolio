@@ -5,5 +5,6 @@ tech:
   - python
 isProfessional: false
 thumbnail: TikTokCommentScrapper/thumbnail.png
+githubName: tiktok-comment-scrapper
 ---
 TikTok Comment Scrapper

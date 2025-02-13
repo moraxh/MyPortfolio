@@ -89,6 +89,10 @@ body {
   border-bottom-right-radius: 0;
 }
 
+.github-button:hover > svg {
+  left: 1.5px;
+}
+
 /* Scrollbar */
 /* width */
 ::-webkit-scrollbar {

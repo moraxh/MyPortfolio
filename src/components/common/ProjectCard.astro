@@ -2,27 +2,49 @@
 const { name, tech, stars, githubName, thumbnail = "default.png", placeholder = false, ...rest } = Astro.props;
 
 import type { ImageMetadata } from 'astro';
-import TechList from "./TechList.astro";
 import { Image } from "astro:assets";
+import TechList from "./TechList.astro";
+import Icon from './Icon.astro';
+import GithubStars from '@components/pages/home/GithubStars.astro';
+
+import { GITHUB_USERNAME } from 'astro:env/server';
+
+// Check for stars
 
 const images: Record<string, { default: ImageMetadata}> = import.meta.glob("../../assets/ProjectsImages/**/*", { eager: true });
 const image = images[`../../assets/ProjectsImages/${thumbnail}`]?.default || images[`../../assets/ProjectsImages/default.png`].default
-
 ---
 <div
   data-glow
-  class="border border-placeholder flex flex-col items-start justify-center gap-2 w-64 p-4 bg-bg rounded-xl hover:brightness-75 duration-100 hover:cursor-pointer"
+  class="project-card border border-placeholder flex flex-col items-start justify-center gap-2 w-64 p-4 bg-bg rounded-xl hover:brightness-[80%] duration-100 hover:cursor-pointer"
   {...rest}
 >
   <div data-glow></div>
   <slot />
   {!placeholder && (
     <>
-      <Image class="rounded-md brightness-[85%]" src={image} alt="thumbnail" />
+      <Image class="rounded-md brightness-[85%] w-full h-32 object-cover border border-placeholder" src={image} alt="thumbnail" />
       <p class="font-bold text-text">{name}</p>
-      <div class="flex flex-wrap gap-2 items-center max-w-[80%]">
-        <TechList class="min-h-5 !h-5 min-w-5 !w-5" tech={tech} />
-      </div>
+      <section class="flex justify-between gap-3 w-full max-w-full">
+        <div class="tech-list flex overflow-x-hidden max-w-full">
+          <div class="flex py-1.5 *:px-1 items-center">
+            <TechList class="min-h-5 !h-5 min-w-5 !w-5" tech={tech} />
+          </div>
+        </div>
+        {(stars || githubName) && (
+          <div class="flex items-center gap-2">
+            <GithubStars server:defer githubName={githubName}>
+              <GithubStars placeholder slot="fallback"/>
+            </GithubStars>
+            {(githubName) && (
+              <a target="_blank" href={`https://github.com/${GITHUB_USERNAME}/${githubName}`} class="github-button flex items-center gap-1 px-2 py-1.5 bg-secondary text-text rounded-lg font-semibold hover:brightness-150" href="">
+                <Icon name="github" class="fill-text h-6 w-auto" />
+                <Icon name="right_arrow" class="fill-text h-3 w-auto relative transition-all duration-300 ease-in-out left-0" />
+              </a>
+            )}
+          </div>
+        )}
+      </section>
     </>
   )}
   {placeholder && (
@@ -42,7 +64,6 @@ const image = images[`../../assets/ProjectsImages/${thumbnail}`]?.default || ima
       </div>
     </>
   )}
-  {
 </div>
 
 <style>
@@ -54,5 +75,50 @@ const image = images[`../../assets/ProjectsImages/${thumbnail}`]?.default || ima
 
   #tech-placeholder > span {
     @apply aspect-square w-5 rounded-full bg-placeholder;
+  }
+
+  .tech-list.carrousel > div {
+    animation: 10s carrousel infinite linear;
+  }
+
+  .tech-list.carrousel:hover > div {
+    animation-play-state: paused;
+  }
+
+  .tech-list.carrousel {
+    position: relative;
+  }
+
+  .tech-list.carrousel::after, 
+  .tech-list.carrousel::before {
+    position: absolute;
+    content: '';
+    top: 0;
+    width: 20px;
+    height: 100%;
+    z-index: 2;
+  }
+
+  .tech-list.carrousel::after {
+    left: 0;
+    background: linear-gradient(
+        to right,
+        var(--color-bg),
+        rgba(0, 0, 0, 0) 100%
+    );
+  }
+
+  .tech-list.carrousel::before {
+    right: 0;
+    background: linear-gradient(
+        to left,
+        var(--color-bg),
+        rgba(0, 0, 0, 0) 100%
+    );
+  }
+
+  @keyframes carrousel {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
   }
 </style>

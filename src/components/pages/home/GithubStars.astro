@@ -1,0 +1,24 @@
+---
+  import Icon from "@components/common/Icon.astro";
+  const { githubName = null, placeholder = false } = Astro.props;
+
+  var stars = 0;
+
+  // Get github stats 
+  if (githubName) {
+    const response = await fetch(`${Astro.url.origin}/api/repos.json`);
+    const repos: { html_url: string, stargazers_count: number }[] | Array<never> = response.ok ? await response.json() : [];
+
+    if (repos.length > 0) {
+      stars = repos.find(repo => repo.html_url.includes(githubName))?.stargazers_count || 0;
+    }
+  }
+  console.log(stars)
+---
+
+{(placeholder || stars > 0) && (
+  <span class="flex items-baseline gap-0.5">
+    <p class="leading-[13px] text-text/50 ">{stars}</p>
+    <Icon name="star" class="w-auto h-[14px] fill-text/50" />
+  </span>
+)}

@@ -7,5 +7,6 @@ tech:
   - javascript
 isProfessional: false
 thumbnail: WebUIClassificationHelper/thumbnail.png
+githubName: WebUIClassificationHelper
 ---
 WP FB Auto Publish

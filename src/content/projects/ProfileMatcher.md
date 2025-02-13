@@ -10,5 +10,6 @@ tech:
   - css
 isProfessional: false
 thumbnail: ProfileMatcher/thumbnail.png
+githubName: ProfileMatcher-A-Semantic-Search-Engine
 ---
 Profile Matcher

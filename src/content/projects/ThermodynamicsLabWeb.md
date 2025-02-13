@@ -8,4 +8,5 @@ tech:
   - javascript
 isProfessional: true
 thumbnail: ThermodynamicsLabWeb/thumbnail.png
+githubName: Thermodynamics-Lab-Web
 ---

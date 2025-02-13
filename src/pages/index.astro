@@ -33,15 +33,34 @@
 
 	<Projects class="animation-fade-in-left animation-delay-1-5" title="Professional Projects" description="Here are some of the projects that I've made professionally">
 		{professionalProjects.map(project => (
-			<ProjectCard id={project.id} name={project.data.name} tech={project.data.tech} thumbnail={project.data.thumbnail} stars="7" githubName="hola" />
+			<ProjectCard id={project.id} name={project.data.name} tech={project.data.tech} thumbnail={project.data.thumbnail} githubName={project.data.githubName}/>
 		))}
 	</Projects>
 
 	<Projects class="animation-fade-in-right animation-delay-1-5" title="Personal Projects" description="Here are some of the projects that I've made for fun and learning" >
 		{nonProfessionalProjects.map(project => (
-			<ProjectCard id={project.id} name={project.data.name} tech={project.data.tech} thumbnail={project.data.thumbnail} stars="7" githubName="hola" />
+			<ProjectCard id={project.id} name={project.data.name} tech={project.data.tech} thumbnail={project.data.thumbnail}  githubName={project.data.githubName}/>
 		))}
 	</Projects>
 
 	<Contact class="animation-fade-in-up animation-delay-1-5" />
 </Layout>
+
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    const projectCards = document.querySelectorAll(".project-card") as NodeListOf<HTMLElement>
+
+		projectCards.forEach(projectCard => {
+			const techList = projectCard.querySelector(".tech-list") as HTMLElement
+			const techListChild = techList.children[0] as HTMLElement
+
+      // Check if the element is bigger than the father
+      if (techListChild.offsetWidth > techList.offsetWidth) {
+				// Add the carrousel class
+				techList.classList.add("carrousel")
+				// Duplicate the children
+				techList.innerHTML += techList.innerHTML
+      }
+		})
+  })
+</script>

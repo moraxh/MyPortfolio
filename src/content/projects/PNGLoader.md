@@ -5,5 +5,6 @@ tech:
   - c
 isProfessional: false
 thumbnail: PNGLoader/thumbnail.png
+githubName: PNGLoader
 ---
 PNG Loader
