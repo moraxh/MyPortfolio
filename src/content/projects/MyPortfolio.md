@@ -6,6 +6,7 @@ tech:
   - tailwindcss
   - figma
   - javascript
+  - vercel
 isProfessional: false
 thumbnail: MyPortfolio/thumbnail.png
 githubName: MyPortfolio
