@@ -22,7 +22,7 @@ const image = images[`../../assets/ProjectsImages/${thumbnail}`]?.default || ima
   <slot />
   {!placeholder && (
     <>
-      <Image class="rounded-md brightness-[85%] w-full h-32 object-cover border border-placeholder" loading="lazy" src={image} alt="thumbnail" />
+      <Image class="rounded-md brightness-[85%] w-full h-32 object-cover border border-placeholder" loading="lazy" src={image} width="250" alt="thumbnail" />
       <p class="font-bold text-text">{name}</p>
       <section class="flex justify-between gap-3 w-full max-w-full">
         <div class="tech-list flex overflow-x-hidden max-w-full">
