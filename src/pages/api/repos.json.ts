@@ -25,12 +25,12 @@ export async function GET() {
       const cache = cacheResponse.ok ? await cacheResponse.json() : null
 
       if (cache) {
-        const { data, timestamp } = cache;
+        const { d, t } = cache;
         const now = Date.now();
 
         // Check if cache is expired
-        if (now - timestamp < CACHE_DURATION) {
-          return Response.json(data);
+        if (now - t < CACHE_DURATION) {
+          return Response.json(d);
         }
       }
     }
@@ -44,21 +44,26 @@ export async function GET() {
     const raw_data: { name: string, html_url: string, stargazers_count: number }[] = await response.json();
 
     // Manage data
+    // c = count
+    // r = repos
+    // n = name
+    // s = stars
     const data = {
-      count: raw_data.length,
-      repos: raw_data.map(repo => {
+      c: raw_data.length,
+      r: raw_data.map(repo => {
         return {
-          name: repo.name,
-          html_url: repo.html_url,
-          stargazers_count: repo.stargazers_count,
+          n: repo.name,
+          s: repo.stargazers_count,
         }
       })
     }
 
     // Write data to cache file
+    // d = data
+    // t = timestamp
     await put(
       CACHE_FILE,
-      JSON.stringify({data, timestamp: Date.now()}),
+      JSON.stringify({d: data, t: Date.now()}),
       { 
         access: 'public',
         addRandomSuffix: false
