@@ -1,24 +1,37 @@
 import { writeFile, readFile, mkdir } from "node:fs/promises";
-import { GITHUB_USERNAME } from "astro:env/server";
+import { GITHUB_USERNAME, BLOB_READ_WRITE_TOKEN } from "astro:env/server";
 import path from "node:path";
+import { put, list } from "@vercel/blob";
 
 const GITHUB_API_URL = `https://api.github.com/users/${GITHUB_USERNAME}/repos`;
-const CACHE_DIR = path.join(process.cwd(), ".cache");
-const CACHE_FILE = path.join(CACHE_DIR, "repos.json");
-const CACHE_DURATION = 3600 * 1000; // 1 hour
+const CACHE_DIR = "cache";
+const CACHE_FILE = `${CACHE_DIR}/repos.json`;
+const CACHE_DURATION = 3600 * 1000 * 24; // 1 day
+
+process.env.BLOB_READ_WRITE_TOKEN = BLOB_READ_WRITE_TOKEN;
 
 export async function GET() {
   try {
-    await mkdir(CACHE_DIR, { recursive: true });
-
     // Check if cache file exists
-    const cache = await readFile(CACHE_FILE, "utf8").catch(() => null);
-    if (cache) {
-      const { data, timestamp } = JSON.parse(cache);
-      const now = Date.now();
+    const blobListResponse = await list({
+      prefix: CACHE_DIR
+    })
 
-      if (now - timestamp < CACHE_DURATION) {
-        return Response.json(data);
+    const cacheUrl = blobListResponse.blobs.find(blob => blob.pathname.includes(CACHE_FILE))
+
+    if (cacheUrl) {
+      // Download cache file
+      const cacheResponse = await fetch(cacheUrl.url)
+      const cache = cacheResponse.ok ? await cacheResponse.json() : null
+
+      if (cache) {
+        const { data, timestamp } = cache;
+        const now = Date.now();
+
+        // Check if cache is expired
+        if (now - timestamp < CACHE_DURATION) {
+          return Response.json(data);
+        }
       }
     }
     
@@ -27,17 +40,34 @@ export async function GET() {
     if (!response.ok) {
       throw new Error("Failed to fetch data from GitHub API");
     }
-    const data = await response.json();
+
+    const raw_data: { name: string, html_url: string, stargazers_count: number }[] = await response.json();
+
+    // Manage data
+    const data = {
+      count: raw_data.length,
+      repos: raw_data.map(repo => {
+        return {
+          name: repo.name,
+          html_url: repo.html_url,
+          stargazers_count: repo.stargazers_count,
+        }
+      })
+    }
 
     // Write data to cache file
-    await writeFile(
+    await put(
       CACHE_FILE,
-      JSON.stringify({ data, timestamp: Date.now() }),
-      'utf-8'
+      JSON.stringify({data, timestamp: Date.now()}),
+      { 
+        access: 'public',
+        addRandomSuffix: false
+      }
     )
     
     return Response.json(data)
   } catch (error: unknown) {
+    console.log(error)
     if (error instanceof Error) {
       return Response.json({
         error: error.message

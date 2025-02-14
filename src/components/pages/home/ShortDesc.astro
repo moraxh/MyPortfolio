@@ -1,9 +1,8 @@
 ---
-  import Icon from "../../common/Icon.astro";
   import StatsCard from "../../common/StatsCard.astro"
-  import GithubStats from "./GithubStats.astro";
   import { WORKING_SINCE, LOOKING_FOR_JOB } from "astro:env/server";
   import { getCollection } from 'astro:content'
+  const { repoCount, ...rest } = Astro.props;
 
   // Get current years 
   const startDate = new Date((WORKING_SINCE || '').replace(/-/g, "/"));
@@ -27,14 +26,7 @@
       <StatsCard class="!justify-between bg-accent" primary={professionalProjects.length} secondary="PROFESSIONAL PROJECTS" />
     )}
 
-    <GithubStats server:defer>
-      <StatsCard slot="fallback" class="!justify-between bg-primary text-bg">
-        <span class="text-7xl">
-          <Icon name='spinner' class='w-16 h-16 fill-black animate-spin' />
-        </span>
-        <p class="text-lg leading-5">GITHUB REPOSITORIES</p>
-      </StatsCard>
-    </GithubStats>
+    <StatsCard class="!justify-between bg-primary text-bg" primary={repoCount} secondary="GITHUB REPOSITORIES" />
   </div>
 
   <div data-glow style="--radius: 20000" class="border-[0.5px] border-white/10 flex justify-center items-center gap-2 bg-bg-secondary w-fit py-2 font-semibold px-5 rounded-full">

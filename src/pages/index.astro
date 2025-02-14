@@ -21,14 +21,13 @@
 	const nonProfessionalProjects = projects.filter(p => !p.data.isProfessional)
 
 	const reposResponse = await fetch(`${Astro.url.origin}/api/repos.json`);
-	const repos: { html_url: string, stargazers_count: number }[] | Array<never> = reposResponse.ok ? await reposResponse.json() : [];
+	const githubData: { count: number, repos: {name: string, html_url: string, stargazers_count: number}[] | [] }  = reposResponse.ok ? await reposResponse.json() : { count: 0, repos: []};
 ---
 <Layout class="flex flex-col justify-center items-center gap-10">
 	<Top />
 	
 	<Hero />
-
-	<ShortDesc />
+	<ShortDesc repoCount={githubData.count} />
 
 	<Projects class="animation-fade-in " title="Professional Projects" description="Here are some of the projects that I've made professionally">
 		{professionalProjects.map(project => (
@@ -38,7 +37,7 @@
 				tech={project.data.tech}
 				thumbnail={project.data.thumbnail}
 				githubName={project.data.githubName}
-				stars={project.data.githubName ? repos.find(repo => repo.html_url.includes(project.data.githubName || String(null)))?.stargazers_count || 0 : 0}
+				stars={project.data.githubName ? githubData.repos.find(repo => repo.html_url.includes(project.data.githubName || String(null)))?.stargazers_count || 0 : 0}
 			/>
 		))}
 	</Projects>
@@ -51,7 +50,7 @@
 				tech={project.data.tech}
 				thumbnail={project.data.thumbnail}
 				githubName={project.data.githubName}
-				stars={project.data.githubName ? repos.find(repo => repo.html_url.includes(project.data.githubName || String(null)))?.stargazers_count || 0 : 0}
+				stars={project.data.githubName ? githubData.repos.find(repo => repo.html_url.includes(project.data.githubName || String(null)))?.stargazers_count || 0 : 0}
 			/>
 		))}
 	</Projects>

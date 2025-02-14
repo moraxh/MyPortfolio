@@ -12,6 +12,7 @@ export default defineConfig({
   },
   env: {
     schema: {
+      BLOB_READ_WRITE_TOKEN: envField.string({ context: 'server', access: 'public' }),
       GITHUB_USERNAME: envField.string({ context: 'server', access: 'public' }),
       FIGMA_LINK: envField.string({ context: 'server', access: 'public' }),
       LOOKING_FOR_JOB: envField.boolean({ default: true, context: 'server', access: 'public' }),
