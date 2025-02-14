@@ -54,16 +54,17 @@
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    animation: pulse 2.5s infinite;
+    animation: pulse 3s infinite alternate;
     animation-timing-function: ease-in-out;
     animation-delay: .5s;
   }
 
   @keyframes pulse {
-    0% { opacity: 1; }
-    40% { opacity: 0; }
-    80% { opacity: 1; }
-    100% { opacity: 1; } 
+    0% { filter: brightness(1); }
+    25% { filter: brightness(0.25); }
+    50% { filter: brightness(1); }
+    75% { filter: brightness(0.25); }
+    100% { filter: brightness(1); }
   }
 
   .status-success {

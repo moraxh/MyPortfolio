@@ -33,7 +33,7 @@ const image = images[`../../assets/ProjectsImages/${thumbnail}`]?.default || ima
         {(stars > 0 || githubName) && (
           <div class="flex items-center gap-2">
             {(stars > 0) && (
-              <span class="flex items-baseline gap-0.5">
+              <span title="Github Stars" class="flex items-baseline gap-0.5">
                 <p class="leading-[13px] text-text/50 ">{stars}</p>
                 <Icon name="star" class="w-auto h-[14px] fill-text/50" />
               </span>
