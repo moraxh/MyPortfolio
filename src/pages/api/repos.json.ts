@@ -1,6 +1,4 @@
-import { writeFile, readFile, mkdir } from "node:fs/promises";
 import { GITHUB_USERNAME, BLOB_READ_WRITE_TOKEN } from "astro:env/server";
-import path from "node:path";
 import { put, list } from "@vercel/blob";
 
 const GITHUB_API_URL = `https://api.github.com/users/${GITHUB_USERNAME}/repos`;
@@ -14,7 +12,7 @@ export async function GET() {
   try {
     // Check if cache file exists
     const blobListResponse = await list({
-      prefix: CACHE_DIR
+      prefix: CACHE_DIR,
     })
 
     const cacheUrl = blobListResponse.blobs.find(blob => blob.pathname.includes(CACHE_FILE))
@@ -30,7 +28,12 @@ export async function GET() {
 
         // Check if cache is expired
         if (now - t < CACHE_DURATION) {
-          return Response.json(d);
+          return new Response(JSON.stringify(d), {
+            headers: {
+              'Content-Type': 'application/json',
+              'Cache-Control': 'max-age=86400, s-maxage=86400, stale-while-revalidate=59'
+            }
+          });
         }
       }
     }
@@ -70,7 +73,12 @@ export async function GET() {
       }
     )
     
-    return Response.json(data)
+    return new Response(JSON.stringify(data), {
+      headers: {
+        'Content-Type': 'application/json',
+        'Cache-Control': 'max-age=86400, s-maxage=86400, stale-while-revalidate=59'
+      }
+    });
   } catch (error: unknown) {
     console.log(error)
     if (error instanceof Error) {
