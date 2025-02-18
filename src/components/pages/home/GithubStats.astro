@@ -1,0 +1,8 @@
+---
+	import StatsCard from "../../common/StatsCard.astro"
+
+	const reposResponse = await fetch(`${Astro.url.origin}/api/repos.json`);
+	const githubData: { c: number, r: {n: string, s: number}[] | [] }  = reposResponse.ok ? await reposResponse.json() : { c: 0, r: []};
+---
+
+<StatsCard class="!justify-between bg-primary text-bg" primary={githubData.c} secondary="GITHUB REPOSITORIES" />
