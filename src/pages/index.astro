@@ -35,22 +35,3 @@
 
 	<Contact class="animation-fade-in " />
 </Layout>
-
-<script>
-  window.addEventListener("DOMContentLoaded", () => {
-    const projectCards = document.querySelectorAll(".project-card") as NodeListOf<HTMLElement>
-
-		projectCards.forEach(projectCard => {
-			const techList = projectCard.querySelector(".tech-list") as HTMLElement
-			const techListChild = techList.children[0] as HTMLElement
-
-      // Check if the element is bigger than the father
-      if (techListChild.offsetWidth > techList.offsetWidth) {
-				// Add the carrousel class
-				techList.classList.add("carrousel")
-				// Duplicate the children
-				techList.innerHTML += techList.innerHTML
-      }
-		})
-  })
-</script>
