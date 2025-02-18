@@ -17,19 +17,19 @@
   <div onclick="" class="infoCards flex flex-wrap justify-center items-center gap-4">
 
     {GITHUB_USERNAME && (
-      <StatsCard href={`https://github.com/${GITHUB_USERNAME}`} class="bg-secondary hover:scale-105 transition-all duration-200 ease-in-out">
+      <StatsCard aria-label="My Github" href={`https://github.com/${GITHUB_USERNAME}`} class="bg-secondary hover:scale-105 transition-all duration-200 ease-in-out">
         <Icon name="github" class="fill-current w-20 xl:w-24" />
       </StatsCard>
     )}
 
     {EMAIL && (
-      <StatsCard href={`maito:${EMAIL}`} class="bg-accent hover:scale-105 transition-all duration-200 ease-in-out">
+      <StatsCard aria-label="My Email" href={`maito:${EMAIL}`} class="bg-accent hover:scale-105 transition-all duration-200 ease-in-out">
         <Icon name="email" class="fill-current w-20 xl:w-24" />
       </StatsCard>
     )}
 
     {LINKEDIN && (
-      <StatsCard href={LINKEDIN} class="bg-secondary hover:scale-105 transition-all duration-200 ease-in-out">
+      <StatsCard aria-label="My Linkedin" href={LINKEDIN} class="bg-secondary hover:scale-105 transition-all duration-200 ease-in-out">
         <Icon name="linkedin" class="fill-current w-20 xl:w-24" />
       </StatsCard>
     )}
