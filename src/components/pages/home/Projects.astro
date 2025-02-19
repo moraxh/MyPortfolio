@@ -12,9 +12,6 @@
 
 	const professionalProjects = projects.filter(p => p.data.isProfessional)
 	const nonProfessionalProjects = projects.filter(p => !p.data.isProfessional)
-
-	const reposResponse = await fetch(`${Astro.url.origin}/api/repos.json`);
-	const githubData: { c: number, r: {n: string, s: number}[] | [] }  = reposResponse.ok ? await reposResponse.json() : { c: 0, r: []};
 ---
 
 <ProjectsWrapper class="animation-fade-in " title="Professional Projects" description="Here are some of the projects that I've made professionally">
@@ -25,7 +22,6 @@
       tech={project.data.tech}
       thumbnail={project.data.thumbnail}
       githubName={project.data.githubName}
-      stars={project.data.githubName ? githubData.r.find(repo => repo.n.includes(project.data.githubName || String(null)))?.s || 0 : 0}
       loadingStrategy={index <= 2 ? "eager" : "lazy"}
     />
   ))}
@@ -39,16 +35,25 @@
       tech={project.data.tech}
       thumbnail={project.data.thumbnail}
       githubName={project.data.githubName}
-      stars={project.data.githubName ? githubData.r.find(repo => repo.n.includes(project.data.githubName || String(null)))?.s || 0 : 0}
     />
   ))}
 </ProjectsWrapper>
 
 <script>
-  const projectCards = document.querySelectorAll(".project-card") as NodeListOf<HTMLElement>
+  window.addEventListener('DOMContentLoaded', () => {
+    const projectCards = document.querySelectorAll(".project-card") as NodeListOf<HTMLElement>
 
-  projectCards.forEach(projectCard => {
-    const techList = projectCard.querySelector(".tech-list") as HTMLElement
+    projectCards.forEach(projectCard => triggerCarrousel(projectCard))
+  })
+
+  window.addEventListener('stars-loaded', ((e: CustomEvent<{ projectCard: HTMLElement }>) => {
+    // console.log('loaded')
+    // console.log(e.detail.projectCard)
+    triggerCarrousel(e.detail.projectCard);
+  }) as EventListener);
+
+  const triggerCarrousel = (el: HTMLElement) => {
+    const techList = el.querySelector(".tech-list") as HTMLElement
     const techListChild = techList.children[0] as HTMLElement
 
     // Check if the element is bigger than the father
@@ -58,5 +63,5 @@
       // Duplicate the children
       techList.innerHTML += techList.innerHTML
     }
-  })
+  }
 </script>

@@ -4,12 +4,11 @@
 	import Hero from '../components/pages/home/Hero.astro'
 	import ShortDesc from '../components/pages/home/ShortDesc.astro'
 	import Projects from '../components/pages/home/Projects.astro'
-	import ProjectsWrapper from '@components/pages/home/ProjectsWrapper.astro'
-	import ProjectCard from '@components/common/ProjectCard.astro'
 	import Contact from '../components/pages/home/Contact.astro'
 	import BorderGlow from '../components/common/BorderGlow.astro'
 
 	const prerender = true
+
 ---
 <Layout class="flex flex-col justify-center items-center gap-10">
 	<Top />
@@ -17,21 +16,7 @@
 	<Hero />
 	<ShortDesc />
 
-	<Projects server:defer >
-		<div class="flex flex-col justify-center items-center gap-10" slot="fallback">
-		<ProjectsWrapper class="animation-fade-in " title="Professional Projects" description="Here are some of the projects that I've made professionally">
-			{[...Array(5)].map(project => (
-				<ProjectCard placeholder/>
-			))}
-		</ProjectsWrapper>
-
-		<ProjectsWrapper class="animation-fade-in " title="Personal Projects" description="Here are some of the projects that I've made for fun and learning" >
-			{[...Array(5)].map(project => (
-				<ProjectCard placeholder/>
-			))}
-		</ProjectsWrapper>
-		</div>
-	</Projects>
+	<Projects />
 
 	<Contact class="animation-fade-in " />
 </Layout>

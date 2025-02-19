@@ -1,0 +1,21 @@
+---
+  const { githubName } = Astro.props
+
+  import Icon from "./Icon.astro"
+  import { getOrSetGithubData } from "@utils/cookieUtils"
+
+  const githubData = await getOrSetGithubData(Astro)
+
+  const stars = githubName ? githubData.r.find(repo => repo.n.includes(githubName || String(null)))?.s || 0 : 0
+---
+
+<span id={`stars-${githubName}`} title="Github Stars" class="flex items-baseline gap-0.5">
+  <p class="leading-[13px] text-text/50 ">{stars}</p>
+  <Icon name="star" class="w-auto h-[14px] fill-text/50" />
+</span>
+
+<script define:vars={{ githubName }}>
+  const projectCard = document.getElementById(`stars-${githubName}`).closest('.project-card')
+
+  window.dispatchEvent(new CustomEvent('stars-loaded', { detail: { projectCard } }))
+</script>

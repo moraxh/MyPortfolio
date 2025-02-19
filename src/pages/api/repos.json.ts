@@ -28,12 +28,7 @@ export async function GET() {
 
         // Check if cache is expired
         if (now - t < CACHE_DURATION) {
-          return new Response(JSON.stringify(d), {
-            headers: {
-              'Content-Type': 'application/json',
-              'Cache-Control': 'max-age=86400, s-maxage=86400, stale-while-revalidate=59'
-            }
-          });
+          return new Response(JSON.stringify(d));
         }
       }
     }
@@ -73,12 +68,7 @@ export async function GET() {
       }
     )
     
-    return new Response(JSON.stringify(data), {
-      headers: {
-        'Content-Type': 'application/json',
-        'Cache-Control': 'max-age=86400, s-maxage=86400, stale-while-revalidate=59'
-      }
-    });
+    return new Response(JSON.stringify(data));
   } catch (error: unknown) {
     console.log(error)
     if (error instanceof Error) {
