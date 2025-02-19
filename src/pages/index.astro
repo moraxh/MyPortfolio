@@ -7,8 +7,11 @@
 	import Contact from '../components/pages/home/Contact.astro'
 	import BorderGlow from '../components/common/BorderGlow.astro'
 
+	import { getOrSetEntryAnimationDisabled } from '@utils/cookieUtils'
+
 	const prerender = true
 
+	const entryAnimationDisabled = getOrSetEntryAnimationDisabled(Astro)
 ---
 <Layout class="flex flex-col justify-center items-center gap-10">
 	<Top />
@@ -20,3 +23,12 @@
 
 	<Contact class="animation-fade-in " />
 </Layout>
+
+{entryAnimationDisabled && (
+	<style is:global>
+		.animation-fade-in,
+		.bg-light {
+			animation-name: none !important;
+		}
+	</style>
+)}

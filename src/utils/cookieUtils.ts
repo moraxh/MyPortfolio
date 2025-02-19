@@ -31,3 +31,15 @@ export async function getOrSetGithubData(Astro: AstroGlobal): Promise<GithubData
 
   return { c: 0, r: [] };
 }
+
+export function getOrSetEntryAnimationDisabled(Astro: AstroGlobal): boolean {
+  if (Astro.cookies.has('animationDisabled')) {
+    return true
+  } else {
+    Astro.cookies.set('animationDisabled', 'true', {
+      maxAge: 300, // 5 minutes in seconds
+    });
+
+    return false
+  }
+}
