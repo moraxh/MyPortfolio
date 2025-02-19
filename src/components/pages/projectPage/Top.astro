@@ -1,0 +1,23 @@
+---
+  import { GITHUB_USERNAME } from "astro:env/server";
+  const { githubName } = Astro.props;
+
+  import Button from "@components/common/Button.astro"
+  import Icon from "@components/common/Icon.astro"
+  console.log(githubName)
+---
+
+<header class="flex justify-between gap-10 max-w-[2000px] w-full mx-auto">
+  <Button class="me-auto" href="/">
+    <Icon name="home" class="stroke-current xs:w-3 w-4" />
+    Return to home
+  </Button>
+
+  {githubName && (
+    <Button href={`https://github.com/${GITHUB_USERNAME}/${githubName}`} target="_blank">
+      Go to Repo
+      <Icon name="github" class="fill-current xs:w-4 w-5" />
+    </Button>
+  )}
+</header>
+

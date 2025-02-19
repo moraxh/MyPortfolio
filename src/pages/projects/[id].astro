@@ -1,0 +1,36 @@
+---
+  import Body from "@components/pages/projectPage/Body.astro";
+  import Hero from "@components/pages/projectPage/Hero.astro";
+  import Top from "@components/pages/projectPage/Top.astro";
+  import Layout from "@layouts/Layout.astro";
+
+  import { Image } from "astro:assets";
+  import { getCollection } from "astro:content";
+
+  export async function getStaticPaths() {
+    const projects = await getCollection("projects");
+
+    return projects.map((project) => ({
+      params: { id: project.slug },
+      props: { project },
+    }))
+  }
+
+  const { project } = Astro.props;
+  const { name, githubName, thumbnail = "default.png" } = project.data;
+
+  const images: Record<string, { default: ImageMetadata}> = import.meta.glob("../../assets/ProjectsImages/**/*", { eager: true });
+  const image = images[`../../assets/ProjectsImages/${thumbnail}`]?.default || images[`../../assets/ProjectsImages/default.png`].default
+
+  export const prerender = true;
+---
+
+<Layout title={`${name} | Projects`} backlight={false} class="flex flex-col justify-start items-center gap-10">
+  <Image src={image} class="bgImage absolute top-0 right-0 left-0 opacity-20 blur-xs object-cover min-h-[500px] max-h-[700px] pointer-events-none" alt="bg-image" />
+
+  <Top githubName={githubName} />
+
+  <Hero project={project} />
+
+  <Body project={project} />
+</Layout>
