@@ -29,13 +29,26 @@ html {
 }
 
 body {
-  @apply m-7 overflow-x-hidden;
+  @apply m-7 xs:mx-15 xs:my-15 overflow-x-hidden;
   min-height: 100vh;
+}
+
+.bgImage {
+ -webkit-mask-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 1) 80%,
+      rgba(0, 0, 0, 0) 100%
+  );
+  mask-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 1) 80%,
+      rgba(0, 0, 0, 0) 100%
+  );
 }
 
 .animation-fade-in {
   position: relative;
-  animation-delay: 0.5s;
+  animation-delay: .5s;
   animation-duration: 1s;
   animation-timing-function: ease-in-out;
   animation-fill-mode: backwards;

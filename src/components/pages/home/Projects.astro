@@ -17,7 +17,7 @@
 <ProjectsWrapper class="animation-fade-in " title="Professional Projects" description="Here are some of the projects that I've made professionally">
   {professionalProjects.map((project, index) => (
     <ProjectCard 
-      id={project.id.split('.')[0]}
+      slug={project.slug}
       name={project.data.name} 
       tech={project.data.tech}
       thumbnail={project.data.thumbnail}
@@ -30,7 +30,7 @@
 <ProjectsWrapper class="animation-fade-in" title="Personal Projects" description="Here are some of the projects that I've made for fun and learning" >
   {nonProfessionalProjects.map(project => (
     <ProjectCard 
-      id={project.id}
+      slug={project.slug}
       name={project.data.name} 
       tech={project.data.tech}
       thumbnail={project.data.thumbnail}
