@@ -9,8 +9,6 @@ import Icon from './Icon.astro';
 import { GITHUB_USERNAME } from 'astro:env/server';
 import GithubStars from './GithubStars.astro';
 
-// Check for stars
-
 const images: Record<string, { default: ImageMetadata}> = import.meta.glob("../../assets/ProjectsImages/**/*", { eager: true });
 const image = images[`../../assets/ProjectsImages/${thumbnail}`]?.default || images[`../../assets/ProjectsImages/default.png`].default
 ---
