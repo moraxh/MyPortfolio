@@ -50,11 +50,13 @@ export async function GET() {
 
     // Manage data
     // c = count
+    // v = valid
     // r = repos
     // n = name
     // s = stars
     const data = {
       c: raw_data.length,
+      v: true,
       r: raw_data.map(repo => {
         return {
           n: repo.name,
