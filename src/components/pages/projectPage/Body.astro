@@ -1,4 +1,6 @@
 ---
+  const { class: className, ...rest } = Astro.props;
+  import '@styles/markdown.css'
   import { render } from "astro:content"; 
 
   const { project } = Astro.props;
@@ -6,6 +8,9 @@
   const { Content } = await render(project);
 ---
 
-<section class="text-start text-base xs:text-xl w-full my-10">
+<section id="bodyContent" class:list={[
+  "text-start text-base xs:text-xl w-full my-10",
+  className,
+  ]}>
   <Content />
 </section>

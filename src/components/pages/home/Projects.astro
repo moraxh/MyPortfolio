@@ -14,7 +14,7 @@
 	const nonProfessionalProjects = projects.filter(p => !p.data.isProfessional)
 ---
 
-<ProjectsWrapper class="animation-fade-in " title="Professional Projects" description="Here are some of the projects that I've made professionally">
+<ProjectsWrapper class="animation-fade-in" title="Professional Projects" description="Here are some of the projects that I've made professionally">
   {professionalProjects.map((project, index) => (
     <ProjectCard 
       slug={project.slug}
