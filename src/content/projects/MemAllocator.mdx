@@ -1,0 +1,132 @@
+---
+name: Memory Allocator
+description: A memory allocator written from scratch in C.
+tech: 
+  - c
+isProfessional: false
+thumbnail: MemAllocator/thumbnail.png
+githubName: MemAllocator
+---
+## Overview 🌐
+
+**MemAllocator** is a simple memory allocator implemented in **C**. The allocator uses `sbrk()` to request memory, simulating a basic heap management system. It allows allocating and deallocating memory blocks dynamically.
+
+## Implementation Details 🛠️  
+
+### **The Program Break (`brk`)**  
+
+The **program break** defines the end of the process's data segment. Increasing the program break allocates memory to the process, while decreasing it deallocates memory. However, there is a limitation in this approach:  
+
+- Allocating memory is straightforward; we can simply increment the `brk` pointer.  
+- Deallocating memory, however, becomes problematic, as it only allows us to free the most recently allocated block (the last one allocated).  
+
+Here's an example of memory layout before and after allocation:
+
+#### **Initial Memory Layout** 📊
+```plaintext
+    ┌───────────────┐
+    │               │
+    │    Block A    │   0x0000
+    │               │
+    ├───────────────┤
+    │               │
+    │    Block B    │   0x0010
+    │               │
+    ├───────────────┤
+    │               │
+    │      BRK      │   0x0020
+    │               │
+    └───────────────┘
+```
+
+#### **Allocating 16 Bytes** 💾
+```plaintext
+    ┌───────────────┐
+    │               │
+    │    Block A    │   0x0000
+    │               │
+    ├───────────────┤
+    │               │
+    │    Block B    │   0x0010
+    │               │
+    ├───────────────┤
+    │               │
+    │    Block C    │   0x0020
+    │               │
+    ├───────────────┤
+    │               │
+    │      BRK      │   0x0030
+    │               │
+    └───────────────┘
+```
+
+#### **Deallocating "Block C" (just decrease `brk`)** 🔄
+```plaintext
+    ┌───────────────┐
+    │               │
+    │    Block A    │   0x0000
+    │               │
+    ├───────────────┤
+    │               │
+    │    Block B    │   0x0010
+    │               │
+    ├───────────────┤
+    │               │
+    │      BRK      │   0x0020
+    │               │
+    └───────────────┘
+```
+
+### **Problem with Deallocating Blocks in the Middle** ⚠️
+The issue arises when we want to deallocate **Block B** (not the last one allocated). Since the `brk` pointer only allows decreasing the allocated memory to the most recent block, it will free **Block C** instead, not **Block B**.  
+
+To solve this, we introduce a **Free List** to keep track of blocks that have been deallocated and are available for reuse. 🔄
+
+### **Memory Blocks with Headers** 🏷️
+
+In order to properly manage reallocations, we need to know the size of a block. To achieve this, we store the block's size in a **Header** that precedes the actual data. The memory block structure looks like this:
+
+```plaintext
+    ┌──────────────────┬────────┐
+    │  Header(size_t)  │  Data  │
+    └──────────────────┴────────┘
+```
+
+### **Free List** 🗂️  
+
+The **Free List** is used to keep track of all available blocks for future allocations. Each block in the Free List has a pointer to the next block. This allows us to reuse freed blocks efficiently.  
+
+For performance reasons, each allocated block is aligned to **32-bit** or **64-bit** boundaries, ensuring proper memory alignment. The minimum block size is **16 bytes** (8 bytes for `size_t` header).  
+
+The structure of the Free List looks like this:
+
+```plaintext
+head(Header *)
+        │
+        v
+    ┌──────────────────┬──────────────────────┐
+    │  Header(size_t)  │  FreeList(Header *)  │
+    └──────────────────┴──────────────────────┘
+            ┌──────────────────────┘
+            v
+    ┌──────────────────┬──────────────────────┐
+    │  Header(size_t)  │  FreeList(Header *)  │
+    └──────────────────┴──────────────────────┘
+            ┌──────────────────────┘
+            v
+    ┌──────────────────┬──────────────────────┐
+    │  Header(size_t)  │  FreeList(Header *)  │
+    └──────────────────┴──────────────────────┘
+            ┌──────────────────────┘
+            v
+          NULL
+```  
+
+### **How It Works** ⚙️  
+- Each block in the Free List contains a **Header** with the size of the block and a pointer to the next free block.  
+- The `head` pointer points to the first available block in the Free List. When a block is freed, it is added to this list for reuse.  
+- Memory blocks are aligned to 16-byte boundaries to ensure efficient access and to avoid issues with unaligned memory accesses.  
+
+## TODO 📅  
+- [ ] Implement memory allocation using `mmap` for improved performance and flexibility.  
+- [ ] Add additional features such as **block splitting** and **merging** to optimize memory usage.  

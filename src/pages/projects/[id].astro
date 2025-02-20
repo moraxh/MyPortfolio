@@ -26,11 +26,11 @@
 ---
 
 <Layout title={`${name} | Projects`} backlight={false} class="flex flex-col justify-start items-center gap-10">
-  <Image src={image} class="bgImage absolute top-0 right-0 left-0 opacity-20 blur-xs object-cover min-h-[500px] max-h-[700px] pointer-events-none" alt="bg-image" />
+  <Image src={image} loading="eager" class="bgImage absolute w-full top-0 right-0 left-0 opacity-20 blur-xs object-cover min-h-[500px] max-h-[600px] pointer-events-none" alt="bg-thumbnail" />
 
-  <Top githubName={githubName} />
+  <Top class="max-w-[2000px] w-full mx-auto" githubName={githubName} />
 
   <Hero project={project} />
 
-  <Body project={project} />
+  <Body class="max-w-[2000px] w-full mx-auto" project={project} />
 </Layout>

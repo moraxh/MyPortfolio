@@ -1,0 +1,47 @@
+@reference "./global.css";
+
+#bodyContent {
+  @apply text-text/90 leading-relaxed;
+}
+
+#bodyContent h2 {
+  @apply text-[2.5rem] font-bold mt-6 mb-4 ps-4 text-primary border-s-4 border-accent leading-tight;
+}
+
+#bodyContent h3 {
+  @apply text-2xl font-semibold mt-5 mb-3 text-primary leading-snug;
+}
+
+#bodyContent p {
+  @apply my-4 text-xl text-text/70;
+}
+
+#bodyContent strong {
+  @apply font-bold text-text;
+}
+
+#bodyContent ul,
+#bodyContent ol {
+  @apply list-disc ms-5 my-4 space-y-2;
+}
+
+#bodyContent li {
+  @apply ms-5 text-lg text-text/90;
+}
+
+#bodyContent pre {
+  @apply text-base bg-bg rounded-xl p-4 overflow-x-auto shadow-md border border-placeholder;
+}
+
+#bodyContent code {
+  @apply inline-flex flex-col items-start text-text/80 px-1 py-0.5 rounded;
+}
+
+#bodyContent a {
+  @apply text-accent underline;
+}
+
+#bodyContent img {
+  @apply block h-auto mx-auto my-4 rounded-xl border-2 border-placeholder max-w-full;
+  max-width: min(56rem, 95%);
+}

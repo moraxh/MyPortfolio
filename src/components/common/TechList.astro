@@ -1,7 +1,7 @@
 ---
   import TechIcon from "./TechIcon.astro"
 
-  const { class: className, tech, ...rest } = Astro.props
+  const { class: className, tech, loading="lazy", ...rest } = Astro.props
 
   const technologies: Record<string, string[]> = {
     "astro"     : ["astro"],
@@ -72,6 +72,7 @@
 
 {[...new Set(techsProcessed)].map(tech => (
   <TechIcon
+    loading={loading}
     name={tech}
     class:list={[
       "w-10 h-10 object-contain",

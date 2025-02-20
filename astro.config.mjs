@@ -3,6 +3,7 @@ import { defineConfig, envField } from 'astro/config';
 
 import tailwindcss from '@tailwindcss/vite';
 import vercel from '@astrojs/vercel'
+import mdx from '@astrojs/mdx';
 
 export default defineConfig({
   output: 'server',
@@ -21,4 +22,5 @@ export default defineConfig({
       LINKEDIN: envField.string({ context: 'server', access: 'public' }),
     }
   },
+  integrations: [mdx()],
 });
