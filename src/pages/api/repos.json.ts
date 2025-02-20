@@ -4,7 +4,7 @@ import { put, list } from "@vercel/blob";
 const GITHUB_API_URL = `https://api.github.com/users/${GITHUB_USERNAME}/repos`;
 const CACHE_DIR = "cache";
 const CACHE_FILE = `${CACHE_DIR}/repos.json`;
-const CACHE_DURATION = 3600 * 1000 * 24; // 1 day
+const CACHE_DURATION = 3600 * 24; // 1 day
 
 process.env.BLOB_READ_WRITE_TOKEN = BLOB_READ_WRITE_TOKEN;
 
@@ -28,7 +28,14 @@ export async function GET() {
 
         // Check if cache is expired
         if (now - t < CACHE_DURATION) {
-          return new Response(JSON.stringify(d));
+          return new Response(JSON.stringify(d), {
+            status: 200,
+            headers: {
+              'Cache-Control': 'public, s-maxage=86400',
+              'CDN-Cache-Control': 'public, s-maxage=86400',
+              'Vercel-CDN-Cache-Control': 'public, s-maxage=86400',
+            },
+          });
         }
       }
     }
@@ -64,11 +71,19 @@ export async function GET() {
       JSON.stringify({d: data, t: Date.now()}),
       { 
         access: 'public',
-        addRandomSuffix: false
+        addRandomSuffix: false,
+        cacheControlMaxAge: 300,
       }
     )
     
-    return new Response(JSON.stringify(data));
+    return new Response(JSON.stringify(data), {
+      status: 200,
+      headers: {
+        'Cache-Control': 'public, s-maxage=86400',
+        'CDN-Cache-Control': 'public, s-maxage=86400',
+        'Vercel-CDN-Cache-Control': 'public, s-maxage=86400',
+      },
+    });
   } catch (error: unknown) {
     console.log(error)
     if (error instanceof Error) {
