@@ -28,7 +28,7 @@
 ---
 
 {icon ? (
-  <span class="relative pointer-events-none">
+  <span class="relative select-none">
     <Image loading={loading} class:list={['z-20 relative', className]} src={icon.default} alt={name} title={name in titleName ? titleName[name] : name} />
     <Image loading={loading} class:list={['absolute top-0 blur-xs z-10 opacity-60', className]} src={icon.default} alt={name} />
   </span>

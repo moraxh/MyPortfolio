@@ -38,7 +38,7 @@
 }
 
 #bodyContent a {
-  @apply text-accent underline;
+  @apply text-accent saturate-150 brightness-125 underline;
 }
 
 #bodyContent img {

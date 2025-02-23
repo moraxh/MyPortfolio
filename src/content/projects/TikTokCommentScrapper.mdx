@@ -7,40 +7,48 @@ isProfessional: false
 thumbnail: TikTokCommentScrapper/thumbnail.png
 githubName: tiktok-comment-scrapper
 ---
-## What's New in This Fork 🚀
+A **TikTok comment scraper** tool designed to extract comments and metadata from TikTok videos efficiently. This fork introduces **asynchronous fetching**, **CSV output support**, and the ability to fetch comments from **multiple URLs or video IDs** simultaneously. Perfect for researchers, data enthusiasts, and trend analysts! 🚀  
 
-- **Asynchronous fetching** for faster and more efficient data retrieval ⚡
-- **CSV output support** for convenient data management 📊
-- **Fetch comments from multiple URLs or video IDs** in one go 🌍
+## 🚀 Features  
 
-## How It Works 🤖
+### ⚡ **Enhanced Performance**  
+- **Asynchronous Fetching**: Enables faster and more efficient data retrieval.  
+- **Multiple URLs/IDs**: Fetch comments from multiple TikTok videos in one go.  
 
-This tool allows you to scrape comments from TikTok videos, enabling quick and easy extraction of comments and related metadata. Whether you're analyzing a viral video or collecting data for research, this scraper helps you collect comments with flexibility and speed. You can fetch data from **single** or **multiple TikTok video URLs/IDs** at once. 
+### 📊 **Flexible Output Formats**  
+- **JSON Output**: Detailed metadata including captions, usernames, avatars, timestamps, and nested replies.  
+- **CSV Support**: Export data in CSV format for easy manipulation and analysis.  
 
-Here’s how you can use the scraper to get the comments data:
+### 🛠️ **User-Friendly Design**  
+- **Simple Commands**: Customize data collection with easy-to-use flags and parameters.  
+- **Scalable**: Handles multiple videos simultaneously, saving time and effort.  
 
-### **Sample Output** 💬
+## 🖼️ Sample Output  
 
-Here’s a sneak peek at how the output will look after running the scraper. The output includes metadata like captions, usernames, avatars, comment timestamps, and even nested replies!
+### 💬 **Comment Data**  
+The scraper extracts detailed comment data, including:  
+- **Captions**: Video captions for context.  
+- **Usernames & Avatars**: Commenter details.  
+- **Timestamps**: When comments were posted.  
+- **Nested Replies**: Full thread of replies for each comment.  
 
 ![Sample Output](../../assets/ProjectsImages/TikTokCommentScrapper/showcase.png)  
 
-### **Example JSON Output** 📑
-
-Here’s an example of the JSON output you can expect:
+### 📑 **JSON Output Example**  
+Here’s a snippet of the JSON output:  
 
 ```json
 {
   "caption": "makk aku jadi animee🤩#faceplay #faceplayapp #anime #harem #xysryo",
   "date_now": "2023-12-10T22:06:04",
-  "video_url": "https://t.tiktok.com/i18n/share/video/7170139292767882522/?_d=0&comment_author_id=6838487455625479169&mid=7157599449395496962&preview_pb=0&region=ID&share_comment_id=7310977412674093829&share_item_id=7170139292767882522&sharer_language=en&source=h5_t&u_code=0",
+  "video_url": "https://t.tiktok.com/i18n/share/video/7170139292767882522/",
   "comments": [
     {
       "username": "user760722966",
       "nickname": "rehan",
       "comment": "testing 😁😁",
       "create_time": "2023-12-10T21:46:36",
-      "avatar": "https://p16-sign-useast2a.tiktokcdn.com/tos-useast2a-avt-0068-giso/f64f2c7df8a16098d3b3c80e958ffc52~c5_100x100.jpg?x-expires=1702306800&x-signature=KhUeuGmPAVij9A8gbgh7wK6rn98%3D",
+      "avatar": "https://p16-sign-useast2a.tiktokcdn.com/tos-useast2a-avt-0068-giso/f64f2c7df8a16098d3b3c80e958ffc52~c5_100x100.jpg",
       "total_reply": 0,
       "replies": []
     },
@@ -49,7 +57,7 @@ Here’s an example of the JSON output you can expect:
       "nickname": "rehan",
       "comment": "bagus",
       "create_time": "2023-12-10T18:55:47",
-      "avatar": "https://p16-sign-useast2a.tiktokcdn.com/tos-useast2a-avt-0068-giso/f64f2c7df8a16098d3b3c80e958ffc52~c5_100x100.jpg?x-expires=1702306800&x-signature=KhUeuGmPAVij9A8gbgh7wK6rn98%3D",
+      "avatar": "https://p16-sign-useast2a.tiktokcdn.com/tos-useast2a-avt-0068-giso/f64f2c7df8a16098d3b3c80e958ffc52~c5_100x100.jpg",
       "total_reply": 3,
       "replies": [
         {
@@ -57,7 +65,7 @@ Here’s an example of the JSON output you can expect:
           "nickname": "Bukan Rio",
           "comment": "good game",
           "create_time": "2023-12-10T18:56:19",
-          "avatar": "https://p16-sign-useast2a.tiktokcdn.com/tos-useast2a-avt-0068-giso/be4a9d0479f29d00cb3d06905ff5a972~c5_100x100.jpg?x-expires=1702306800&x-signature=IvkeSvXmvkmE0hZG5dtgpqcFn3A%3D"
+          "avatar": "https://p16-sign-useast2a.tiktokcdn.com/tos-useast2a-avt-0068-giso/be4a9d0479f29d00cb3d06905ff5a972~c5_100x100.jpg"
         }
         // more replies
       ]
@@ -67,14 +75,19 @@ Here’s an example of the JSON output you can expect:
 }
 ```
 
-## Why Use This Scraper? 💡
+## 🛠️ How It Works  
 
-Whether you're conducting research, analyzing trends, or just curious about what TikTok users are saying, this scraper provides a fast, flexible, and straightforward way to collect the data you need.
+1️⃣ Provide **TikTok video URLs or IDs** as input.  
+2️⃣ The scraper fetches comments and metadata **asynchronously** for faster processing.  
+3️⃣ Data is organized and exported in **JSON or CSV format**.  
+4️⃣ Analyze the output for research, trend analysis, or other purposes.  
 
-- **Fast and Scalable** 🚀: Asynchronous fetching allows you to process multiple videos simultaneously, saving time.
-- **Easy to Use** 👌: Simple flags and parameters to customize your data collection.
-- **Flexible Output Options** 💾: Get your results in JSON or CSV format for easy manipulation.
+## 💡 Why Use This Scraper?  
 
-## Perfect for Researchers and Data Enthusiasts 🔍
+- **Fast & Scalable**: Asynchronous fetching allows for quick data collection from multiple videos.  
+- **Easy to Use**: Simple commands and customizable parameters make it accessible for all users.  
+- **Flexible Outputs**: Choose between JSON or CSV formats for your analysis needs.  
 
-This tool was developed as part of a **research project** at the **University of Guanajuato**. It’s optimized to make collecting and analyzing TikTok comments as smooth as possible, perfect for anyone working with social media data!
+## 🔍 Perfect for Researchers and Data Enthusiasts  
+
+Developed as part of a **research project** at the **University of Guanajuato**, this tool is optimized for collecting and analyzing TikTok comments. Whether you're studying social media trends or conducting in-depth research, this scraper simplifies the process! 💻✨

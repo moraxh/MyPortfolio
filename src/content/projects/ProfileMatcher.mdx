@@ -1,6 +1,6 @@
 ---
 name: Profile Matcher
-description: A PNG image loader writted in C from scratch. Lord pls save me 😩
+description: A search engine that finds individuals based on descriptive text. Using bag of words, it enables users to input attributes and retrieve matching profiles through advanced text analysis
 tech: 
   - docker
   - mongodb
@@ -12,52 +12,46 @@ isProfessional: false
 thumbnail: ProfileMatcher/thumbnail.png
 githubName: ProfileMatcher-A-Semantic-Search-Engine
 ---
-## Overview
+A **semantic search engine** called **ProfileMatcher** designed to find the best match between profiles using **Bag of Words** and **TF-IDF** techniques. Built with **Node.js** and **Python**, and orchestrated via **Docker**, this tool ensures efficient profile matching and scalability.  
 
-**ProfileMatcher** is a powerful **semantic search engine** designed to find the best match between profiles using **Bag of Words** and **TF-IDF** techniques. It is built with **Node.js** and **Python**, orchestrated via **Docker** for seamless deployment and scalability.  
+## 🚀 Features  
 
-### **Key Components**  
-- **Node.js** – Manages person descriptions (adding, deleting, updating records).  
-- **Python** – Handles the search and ranking process, leveraging **natural language processing (NLP)** to determine relevant matches.  
-- **Modular Architecture** – Two independent servers run separately for **Node.js** and **Python**, ensuring efficiency.  
+### 🔍 **Semantic Search Engine**  
+- **Bag of Words & TF-IDF**: Utilizes NLP techniques to rank and match profiles based on relevance.  
+- **Modular Architecture**: Separates **Node.js** (profile management) and **Python** (search and ranking) for optimal performance.  
 
-## Preview
+### 📂 **Profile Management**  
+- **Add/Delete/Update Records**: Easily manage profile descriptions through the Node.js server.  
+- **Text Preprocessing**: Enhances search accuracy with a robust text processing pipeline.  
 
-Take a look at **ProfileMatcher** in action:  
+### 🛠️ **Text Processing Pipeline**  
+Before performing a search, text data undergoes:  
+✔ **Lowercasing**: Converts text to lowercase.  
+✔ **Special Character Removal**: Cleans text for better analysis.  
+✔ **Stop Word Removal**: Eliminates irrelevant words.  
+✔ **Spell Check**: Corrects spelling errors.  
+✔ **Lemmatization**: Reduces words to their base forms.  
+✔ **Synonym Replacement**: Enhances matching by using synonyms.  
+✔ **Stemming**: Further simplifies words to their root forms.  
+
+## 🖼️ Preview  
 
 ![Preview](../../assets/ProjectsImages/ProfileMatcher/thumbnail.png)  
+
 ![Preview](../../assets/ProjectsImages/ProfileMatcher/thumbnail_2.png)  
 
-## How It Works
-
-### **Search Request Flow**  
-When a user submits a search query, the following process occurs:  
-
-```plaintext
-Search Request → Node.js Server → Python Server → Search Function → Return Response
-```
-
-### **Text Processing Pipeline**  
-Before performing a search, text data undergoes a **preprocessing pipeline** to enhance accuracy:  
-
+### 📝 **Text Preprocessing Pipeline**  
 ```plaintext
 txt to lower → Remove special chars → Remove stop words → Spell check → Lemmatize → Replace synonyms → Stem
-```
+```  
 
-## Limitations & Considerations
+## ⚠️ Limitations & Considerations  
 
-### **Lemmatization Constraint**  
-The project utilizes a **Spanish linguistic API**, obtained via **web scraping** from [Lenguaje.com](https://lenguaje.com). The specific API used is:  
+### 🛑 **Lemmatization Constraint**  
+- **API Dependency**: Relies on a **Spanish linguistic API** from [Lenguaje.com](https://lenguaje.com).  
+- **Request Limits**: The API imposes an **hourly request limit**, which can hinder large-scale processing.  
+- **Workaround**: A **proxy server** could mitigate this issue, but it has not been implemented yet.  
 
 🔗 [Lemmatizer API](https://lenguaje.com/wp-json/lemmatizer/v1/)  
 
-⚠ Limitations:
-- The API imposes a **request limit per hour**, which may hinder large-scale processing.  
-- A potential workaround is using a **proxy server**, but this has **not been implemented** yet.  
-
-## Future Improvements
-
-🚀 Planned enhancements:  
-- Develop a **custom lemmatization service** to eliminate reliance on external APIs.  
-- Optimize search efficiency by integrating **word embeddings** or **semantic vector models**.  
-- Expand support for **multiple languages** beyond Spanish.  
+ProfileMatcher is a powerful tool for profile matching, designed with scalability and efficiency in mind. Whether for recruitment, research, or data analysis, it simplifies the process of finding the best matches! 💻✨

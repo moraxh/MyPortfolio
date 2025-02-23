@@ -7,55 +7,60 @@ isProfessional: false
 thumbnail: PNGLoader/thumbnail.png
 githubName: PNGLoader
 ---
-This project is a **PNG image loader** implemented in **C** from scratch. It was developed primarily for educational purposes to better understand how **PNG** (Portable Network Graphics) images are stored, encoded, and compressed. By implementing a PNG loader, this project explores how PNG files are structured and how to manipulate binary files at a low level, offering a deeper dive into image formats and compression algorithms like **Deflate**.
+A **PNG image loader** implemented in **C** from scratch, designed to explore the structure, encoding, and compression of **PNG (Portable Network Graphics)** files. This project provides a hands-on understanding of binary file manipulation, chunk-based file formats, and the **Deflate compression algorithm**, making it an excellent educational tool for low-level programming enthusiasts. 🚀  
 
-## Purpose and Motivation 🚀
+## 🎯 Purpose and Motivation  
 
-The goal of this project is to understand the inner workings of PNG files, from the encoding process to the compression and decompression of image data. Working directly with binary files allows for a greater appreciation of how image data is represented and processed, which is crucial for anyone interested in low-level programming or file formats.
+The primary goal of this project is to delve into the inner workings of PNG files, including:  
+- **File Structure**: Understanding how PNG files are organized into chunks.  
+- **Compression**: Exploring the **Deflate algorithm** used for compressing image data.  
+- **Binary Manipulation**: Learning how to read and process binary files in C.  
 
-I was inspired by the excellent documentation available on [Wikipedia’s PNG page](https://en.wikipedia.org/wiki/PNG) and wanted to explore how image data is decoded, how compression algorithms like **Deflate** work, and how file chunks are managed in PNG images. This project is perfect for developers and learners who want to experiment with file parsing and compression/decompression.
+Inspired by the detailed documentation on [Wikipedia’s PNG page](https://en.wikipedia.org/wiki/PNG), this project is perfect for developers and learners interested in file parsing, compression, and image processing.  
 
-## How PNG Files Work 📚
+## 📚 How PNG Files Work  
 
-A PNG file is made up of multiple components, referred to as **chunks**. Each chunk contains essential data for the image and the file format. These chunks are ordered and each has a specific function:
+PNG files are composed of multiple **chunks**, each serving a specific purpose:  
 
-- **IHDR (Header)**: Contains vital metadata like image width, height, bit depth, and color type.
-- **IDAT (Image Data)**: Contains the compressed pixel data of the image.
-- **IEND (End of File)**: Marks the end of the PNG file.
-- **Optional Chunks**: PNG files may also contain additional optional chunks (like PLTE for palettes, tRNS for transparency, etc.).
+- **IHDR (Header)**: Contains metadata like image width, height, bit depth, and color type.  
+- **IDAT (Image Data)**: Stores compressed pixel data using the **Deflate algorithm**.  
+- **IEND (End of File)**: Marks the end of the PNG file.  
+- **Optional Chunks**: Additional chunks like **PLTE** (palette) and **tRNS** (transparency) may also be present.  
 
-### **PNG Structure Breakdown** 📊
+### 📊 PNG Structure Breakdown  
 
-1. **Signature**: The PNG file begins with an 8-byte signature that verifies the file is in the correct format.
-2. **Chunks**: After the signature, the PNG file contains a series of chunks, including:
-   - **Length** (4 bytes)
-   - **Type** (4 bytes)
-   - **Data** (variable length, depends on the chunk)
-   - **CRC** (Cyclic Redundancy Check for error detection)
+1. **Signature**: An 8-byte signature at the start of the file verifies it as a valid PNG.  
+2. **Chunks**: Each chunk consists of:  
+   - **Length** (4 bytes): Size of the chunk's data.  
+   - **Type** (4 bytes): Identifies the chunk (e.g., IHDR, IDAT).  
+   - **Data** (variable length): The actual chunk data.  
+   - **CRC** (4 bytes): Cyclic Redundancy Check for error detection.  
 
-Each chunk is decoded and processed to extract necessary information or pixel data.
+## 🔑 Key Features  
 
-## Key Features 🔑
+### 🧩 **Chunk Parsing**  
+- Reads and interprets primary PNG chunks like **IHDR**, **IDAT**, and **IEND**.  
+- Extracts metadata and pixel data from each chunk.  
 
-- **Chunk Parsing**: The loader can read and interpret the primary PNG chunks such as **IHDR**, **IDAT**, and **IEND**, extracting metadata and pixel data from each.
-- **Deflate Decompression**: It can handle **Deflate compression** used in PNG files to decompress pixel data from the **IDAT** chunk.
-- **Binary File Manipulation**: The project demonstrates how to work with binary files by reading and writing raw bytes in C, a crucial skill for working with non-text file formats.
-- **Flexible Data Handling**: It supports multiple color types, such as grayscale, RGB, and RGBA, and provides raw pixel data for further manipulation.
+### 🛠️ **Deflate Decompression**  
+- Decompresses pixel data from the **IDAT chunk** using the **Deflate algorithm**.  
+- Handles compressed image data to extract raw pixel information.  
 
-## How It Works 🧑‍💻
+### 💻 **Binary File Manipulation**  
+- Demonstrates reading and writing raw bytes in C.  
+- Provides a deeper understanding of non-text file formats.  
 
-The program follows a series of steps to load and decode a PNG file:
+### 🎨 **Flexible Data Handling**  
+- Supports multiple color types, including grayscale, RGB, and RGBA.  
+- Outputs raw pixel data for further processing or rendering.  
 
-1. **File Reading**: The file is opened in binary mode and the **PNG signature** is checked to verify the file is indeed a PNG.
-2. **Chunk Parsing**: The program reads each chunk sequentially, handling chunks like IHDR (metadata) and IDAT (image data). The chunk's length and type are first extracted, followed by its data.
-3. **Deflate Decompression**: The **IDAT chunk**, which contains compressed image data, is decompressed using the **Deflate** algorithm, which allows the image data to be extracted in a raw format.
-4. **Pixel Representation**: After decompression, the pixel data is stored in an array or buffer, which can then be used for rendering or further image processing.
+## 🌟 Future Improvements  
 
-## Future Improvements 🌟
+While the current implementation is functional, several enhancements can be made:  
 
-While the current implementation is functional, there are several areas for improvement and future features:
+- **Additional Color Type Support**: Add support for indexed color and other advanced color types.  
+- **Error Handling**: Improve handling of corrupted files, unsupported chunks, and invalid data.  
+- **Image Rendering**: Implement functionality to render decoded images directly on the screen.  
+- **Optimization**: Refine memory usage and performance for handling larger images.  
 
-- **Additional Color Type Support**: Adding support for more advanced color types like indexed color would further enhance the loader’s capabilities.
-- **Error Handling**: Improve error handling for cases like corrupted PNG files, unsupported chunks, or invalid data.
-- **Image Rendering**: Implement functionality to render the decoded image directly on the screen, making the loader interactive.
-- **Optimization**: Refine memory usage and improve performance when handling larger images to make the tool more efficient.
+This project is a stepping stone for anyone looking to explore low-level file formats, compression algorithms, and image processing in C. 💡💻
