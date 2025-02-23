@@ -7,20 +7,20 @@ isProfessional: false
 thumbnail: MemAllocator/thumbnail.png
 githubName: MemAllocator
 ---
-**MemAllocator** is a simple memory allocator implemented in **C**. The allocator uses `sbrk()` to request memory, simulating a basic heap management system. It allows allocating and deallocating memory blocks dynamically.
+**MemAllocator** is a simple memory allocator implemented in **C**. It uses `sbrk()` to request memory, simulating a basic heap management system. This allocator allows **dynamic allocation and deallocation** of memory blocks.  
 
-## Implementation Details 🛠️  
+## 🛠️ **Implementation Details**  
 
-### **The Program Break (`brk`)**  
+### 📌 **The Program Break (`brk`)**  
 
-The **program break** defines the end of the process's data segment. Increasing the program break allocates memory to the process, while decreasing it deallocates memory. However, there is a limitation in this approach:  
+The **program break** defines the **end of the process's data segment**. Increasing the program break allocates memory, while decreasing it deallocates memory. However, this method has some limitations:  
 
-- Allocating memory is straightforward; we can simply increment the `brk` pointer.  
-- Deallocating memory, however, becomes problematic, as it only allows us to free the most recently allocated block (the last one allocated).  
+- ✅ **Allocating memory** is straightforward—just increment the `brk` pointer.  
+- ❌ **Deallocating memory** is problematic since only the **most recently allocated block** (last allocated) can be freed.  
 
-Here's an example of memory layout before and after allocation:
+### 📊 **Memory Layout**  
 
-#### **Initial Memory Layout** 📊
+#### **Initial Memory State**  
 ```plaintext
     ┌───────────────┐
     │               │
@@ -37,7 +37,7 @@ Here's an example of memory layout before and after allocation:
     └───────────────┘
 ```
 
-#### **Allocating 16 Bytes** 💾
+#### **Allocating 16 Bytes** 💾  
 ```plaintext
     ┌───────────────┐
     │               │
@@ -58,7 +58,7 @@ Here's an example of memory layout before and after allocation:
     └───────────────┘
 ```
 
-#### **Deallocating "Block C" (just decrease `brk`)** 🔄
+#### **Deallocating "Block C" (just decrease `brk`)** 🔄  
 ```plaintext
     ┌───────────────┐
     │               │
@@ -75,14 +75,17 @@ Here's an example of memory layout before and after allocation:
     └───────────────┘
 ```
 
-### **Problem with Deallocating Blocks in the Middle** ⚠️
-The issue arises when we want to deallocate **Block B** (not the last one allocated). Since the `brk` pointer only allows decreasing the allocated memory to the most recent block, it will free **Block C** instead, not **Block B**.  
+### ⚠️ **Problem with Deallocating Blocks in the Middle**  
 
-To solve this, we introduce a **Free List** to keep track of blocks that have been deallocated and are available for reuse. 🔄
+If we want to deallocate **Block B** (not the last allocated block), the `brk` pointer **cannot** be decreased to reclaim that memory directly. Instead, only the **last allocated block (Block C)** can be freed.  
 
-### **Memory Blocks with Headers** 🏷️
+### ✅ **Solution: Free List**  
 
-In order to properly manage reallocations, we need to know the size of a block. To achieve this, we store the block's size in a **Header** that precedes the actual data. The memory block structure looks like this:
+To address this limitation, a **Free List** is introduced to keep track of deallocated blocks for future reuse.  
+
+## 🏷️ **Memory Blocks with Headers**  
+
+To manage memory effectively, each allocated block **stores its size in a Header** before the actual data.  
 
 ```plaintext
     ┌──────────────────┬────────┐
@@ -90,13 +93,13 @@ In order to properly manage reallocations, we need to know the size of a block. 
     └──────────────────┴────────┘
 ```
 
-### **Free List** 🗂️  
+- The **Header** stores the **size of the block**.  
+- The **data section** follows immediately after the Header.  
+- Blocks are aligned to **16-byte boundaries** for performance and stability.  
 
-The **Free List** is used to keep track of all available blocks for future allocations. Each block in the Free List has a pointer to the next block. This allows us to reuse freed blocks efficiently.  
+## 🗂️ **Free List Implementation**  
 
-For performance reasons, each allocated block is aligned to **32-bit** or **64-bit** boundaries, ensuring proper memory alignment. The minimum block size is **16 bytes** (8 bytes for `size_t` header).  
-
-The structure of the Free List looks like this:
+The **Free List** helps manage reusable memory blocks. It is a linked list where each block contains a **Header** and a pointer to the next available block.  
 
 ```plaintext
 head(Header *)
@@ -120,11 +123,17 @@ head(Header *)
           NULL
 ```  
 
-### **How It Works** ⚙️  
-- Each block in the Free List contains a **Header** with the size of the block and a pointer to the next free block.  
-- The `head` pointer points to the first available block in the Free List. When a block is freed, it is added to this list for reuse.  
-- Memory blocks are aligned to 16-byte boundaries to ensure efficient access and to avoid issues with unaligned memory accesses.  
+### ⚙️ **How It Works**  
 
-## TODO 📅  
-- [ ] Implement memory allocation using `mmap` for improved performance and flexibility.  
-- [ ] Add additional features such as **block splitting** and **merging** to optimize memory usage.  
+- Each block in the Free List contains:  
+  - A **Header** (stores block size).  
+  - A **pointer to the next free block**.  
+- The `head` pointer points to the **first available block** in the Free List.  
+- When a block is **freed**, it is **added back to the Free List** for future reuse.  
+- Memory is aligned to **16-byte boundaries** for better performance and to prevent misalignment issues.  
+
+## 📅 **TODO – Future Improvements**  
+
+- [ ] **Implement memory allocation using `mmap`** for improved performance and flexibility.  
+- [ ] **Add block splitting and merging** to optimize memory usage.  
+- [ ] **Improve fragmentation handling** by implementing a best-fit or buddy allocation strategy.  
