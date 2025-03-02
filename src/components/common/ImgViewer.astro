@@ -2,7 +2,7 @@
   import Icon from "@components/common/Icon.astro";
 ---
 <dialog hidden id="imgViewer" class="z-50 fixed top-0 left-0 w-screen h-screen bg-black/50 backdrop-blur-sm flex justify-center items-center">
-  <img class="w-[90%] rounded-xl shadow-2xl shadow-primary/50 select-none" src="/_image?href=%2F%40fs%2FC%3A%2FUsers%2FJorge+Mora%2FDesktop%2FPersonal+Projects%2FMoraxhPortfolio%2Fsrc%2Fassets%2FProjectsImages%2FGuionApp%2Fthumbnail.png%3ForigWidth%3D1920%26origHeight%3D1016%26origFormat%3Dpng&w=1920&h=1016&f=webp" alt="imgViewer">
+  <img class="w-[90%] max-w-[90%] max-h-[90%] object-contain rounded-xl shadow-2xl shadow-primary/50 select-none" src="/_image?href=%2F%40fs%2FC%3A%2FUsers%2FJorge+Mora%2FDesktop%2FPersonal+Projects%2FMoraxhPortfolio%2Fsrc%2Fassets%2FProjectsImages%2FGuionApp%2Fthumbnail.png%3ForigWidth%3D1920%26origHeight%3D1016%26origFormat%3Dpng&w=1920&h=1016&f=webp" alt="imgViewer">
   <button class="hover:cursor-pointer absolute top-0 right-0 m-8">
     <Icon name="xmark" class="w-5 h-auto fill-text" />
   </button>
