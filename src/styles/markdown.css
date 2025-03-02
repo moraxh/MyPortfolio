@@ -42,6 +42,11 @@
 }
 
 #bodyContent img {
-  @apply block h-auto mx-auto my-4 rounded-xl border-2 border-placeholder max-w-full;
+  @apply block h-auto mx-auto my-4 rounded-xl border-2 border-placeholder max-w-full transition-all;
   max-width: min(56rem, 95%);
+}
+
+#bodyContent img:hover {
+  cursor: pointer;
+  filter: brightness(0.9);
 }

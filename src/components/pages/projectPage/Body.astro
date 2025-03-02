@@ -14,3 +14,16 @@
   ]}>
   <Content />
 </section>
+
+<script>
+  window.addEventListener('load', () => {
+    const imgs = document.querySelectorAll('img');
+    
+    imgs.forEach(img => {
+      img.addEventListener('click', (event) => {
+        const src = (event.currentTarget as HTMLImageElement).src;
+        window.openImgViewer(src)
+      })
+    })
+  })
+</script>
