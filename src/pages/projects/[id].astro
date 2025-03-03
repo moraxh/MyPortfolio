@@ -2,6 +2,7 @@
   import ImgViewer from "@components/common/ImgViewer.astro";
   import Body from "@components/pages/projectPage/Body.astro";
   import Hero from "@components/pages/projectPage/Hero.astro";
+  import MoreProjects from "@components/pages/projectPage/MoreProjects.astro";
   import Top from "@components/pages/projectPage/Top.astro";
   import Layout from "@layouts/Layout.astro";
 
@@ -34,6 +35,8 @@
   <Hero project={project} />
 
   <Body class="max-w-[1500px] w-full mx-auto" project={project} />
+
+  <MoreProjects current={project} />
 
   <ImgViewer />
 </Layout>

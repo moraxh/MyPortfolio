@@ -1,0 +1,75 @@
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    // Project Cards
+    const projectCards = document.querySelectorAll(".project-card") as NodeListOf<HTMLElement>
+    projectCards.forEach(projectCard => triggerCarrousel(projectCard))
+
+    window.addEventListener('stars-loaded', ((e: CustomEvent<{ projectCard: HTMLElement }>) => {
+      triggerCarrousel(e.detail.projectCard);
+    }) as EventListener);
+
+    // More Projects
+    const moreProjects = document.querySelector("#moreProjects") as HTMLElement
+    triggerCarrousel(moreProjects)
+  })
+
+  const triggerCarrousel = (el: HTMLElement) => {
+    const carrouselList = el.querySelector(".carrousel-list") as HTMLElement
+    const carrouselListChild = carrouselList.children[0] as HTMLElement
+
+    // Check if the element is bigger than the father
+    if (carrouselListChild.offsetWidth > carrouselList.offsetWidth) {
+      // Add the carrousel class
+      carrouselList.classList.add("carrousel")
+      // Duplicate the children
+      carrouselList.innerHTML += carrouselList.innerHTML
+    }
+  }
+</script>
+
+<style is:global>
+  .carrousel-list.carrousel > div {
+    animation: 10s carrousel infinite linear;
+  }
+
+  .carrousel-list.carrousel:hover > div {
+    animation-play-state: paused;
+  }
+
+  .carrousel-list.carrousel {
+    position: relative;
+  }
+
+  .carrousel-list.carrousel::after, 
+  .carrousel-list.carrousel::before {
+    position: absolute;
+    content: '';
+    top: 0;
+    width: 20px;
+    height: 100%;
+    z-index: 2;
+  }
+
+  .carrousel-list.carrousel::after {
+    left: 0;
+    background: linear-gradient(
+        to right,
+        var(--color-bg),
+        rgba(0, 0, 0, 0) 100%
+    );
+  }
+
+  .carrousel-list.carrousel::before {
+    right: 0;
+    background: linear-gradient(
+        to left,
+        var(--color-bg),
+        rgba(0, 0, 0, 0) 100%
+    );
+  }
+
+  @keyframes carrousel {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+  }
+</style>

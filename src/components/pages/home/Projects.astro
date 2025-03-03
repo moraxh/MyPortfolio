@@ -1,6 +1,7 @@
 ---
   import ProjectsWrapper from "./ProjectsWrapper.astro"
   import ProjectCard from "@components/common/ProjectCard.astro"
+  import ProjectCardTechCarrousel from "@components/common/ProjectCardTechCarrousel.astro"
 	import { getCollection } from 'astro:content'
 
 	const projects = await getCollection('projects')
@@ -39,29 +40,4 @@
   ))}
 </ProjectsWrapper>
 
-<script>
-  window.addEventListener('DOMContentLoaded', () => {
-    const projectCards = document.querySelectorAll(".project-card") as NodeListOf<HTMLElement>
-
-    projectCards.forEach(projectCard => triggerCarrousel(projectCard))
-  })
-
-  window.addEventListener('stars-loaded', ((e: CustomEvent<{ projectCard: HTMLElement }>) => {
-    // console.log('loaded')
-    // console.log(e.detail.projectCard)
-    triggerCarrousel(e.detail.projectCard);
-  }) as EventListener);
-
-  const triggerCarrousel = (el: HTMLElement) => {
-    const techList = el.querySelector(".tech-list") as HTMLElement
-    const techListChild = techList.children[0] as HTMLElement
-
-    // Check if the element is bigger than the father
-    if (techListChild.offsetWidth > techList.offsetWidth) {
-      // Add the carrousel class
-      techList.classList.add("carrousel")
-      // Duplicate the children
-      techList.innerHTML += techList.innerHTML
-    }
-  }
-</script>
+<ProjectCardTechCarrousel />

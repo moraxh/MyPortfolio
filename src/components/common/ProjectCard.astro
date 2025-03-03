@@ -15,7 +15,7 @@ const image = images[`../../assets/ProjectsImages/${thumbnail}`]?.default || ima
 <div
   onclick={`window.location.href='/projects/${slug}'`}
   data-glow
-  class="project-card border border-placeholder flex flex-col items-start justify-center gap-2 w-64 p-4 bg-bg rounded-xl hover:brightness-[80%] duration-100 hover:cursor-pointer"
+  class="project-card border border-placeholder flex flex-col items-start justify-center gap-2 min-w-64 w-64 p-4 bg-bg rounded-xl hover:brightness-[80%] duration-100 hover:cursor-pointer"
   {...rest}
 >
   <div data-glow></div>
@@ -25,7 +25,7 @@ const image = images[`../../assets/ProjectsImages/${thumbnail}`]?.default || ima
       <Image class="rounded-md brightness-[85%] w-full h-32 object-cover border border-placeholder" loading={loadingStrategy} src={image} width="250" alt="thumbnail" />
       <p class="font-bold text-text">{name}</p>
       <section class="flex justify-between gap-3 w-full max-w-full">
-        <div class="tech-list flex overflow-x-hidden max-w-full">
+        <div class="carrousel-list flex overflow-x-hidden max-w-full">
           <div class="flex py-1.5 *:px-1 items-center">
             <TechList class="min-h-5 !h-5 min-w-5 !w-5" tech={tech} />
           </div>
@@ -74,48 +74,4 @@ const image = images[`../../assets/ProjectsImages/${thumbnail}`]?.default || ima
     @apply aspect-square w-5 rounded-full bg-placeholder;
   }
 
-  .tech-list.carrousel > div {
-    animation: 10s carrousel infinite linear;
-  }
-
-  .tech-list.carrousel:hover > div {
-    animation-play-state: paused;
-  }
-
-  .tech-list.carrousel {
-    position: relative;
-  }
-
-  .tech-list.carrousel::after, 
-  .tech-list.carrousel::before {
-    position: absolute;
-    content: '';
-    top: 0;
-    width: 20px;
-    height: 100%;
-    z-index: 2;
-  }
-
-  .tech-list.carrousel::after {
-    left: 0;
-    background: linear-gradient(
-        to right,
-        var(--color-bg),
-        rgba(0, 0, 0, 0) 100%
-    );
-  }
-
-  .tech-list.carrousel::before {
-    right: 0;
-    background: linear-gradient(
-        to left,
-        var(--color-bg),
-        rgba(0, 0, 0, 0) 100%
-    );
-  }
-
-  @keyframes carrousel {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-100%); }
-  }
 </style>
