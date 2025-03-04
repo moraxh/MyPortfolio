@@ -40,6 +40,13 @@
       imgViewer.hidden = false;
       body.style.overflow = 'hidden';
       imgViewer.querySelector('img')?.setAttribute('src', src);
+      imgViewer.focus();
+    }
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        closeImgViewer();
+      }
     }
 
     const closeImgViewer = () => {
@@ -47,6 +54,7 @@
       imgViewer.hidden = true;
     }
     
+    imgViewer.addEventListener('keydown', handleKeyDown)
     closeButton.addEventListener('click', closeImgViewer);
     imgViewer.addEventListener('click', e => {
       const target = e.target as HTMLElement;
