@@ -1,34 +1,37 @@
 ---
-	import Layout from '../layouts/Layout.astro'
-	import Top from '../components/pages/home/Top.astro'
-	import Hero from '../components/pages/home/Hero.astro'
-	import ShortDesc from '../components/pages/home/ShortDesc.astro'
-	import Projects from '../components/pages/home/Projects.astro'
-	import Contact from '../components/pages/home/Contact.astro'
-	import BorderGlow from '../components/common/BorderGlow.astro'
+  import '@fontsource/space-grotesk'
+  import '@fontsource/jetbrains-mono'
+  import '@styles/global.css'
 
-	import { getOrSetEntryAnimationDisabled } from '@utils/cookieUtils'
+	import { Toaster } from '@layouts/components/ui/sonner'
 
-	const prerender = true
-
-	const entryAnimationDisabled = getOrSetEntryAnimationDisabled(Astro)
+	import NeuronalBackground from '@components/NeuronalBackground'
+	import Navbar from '@components/Navbar'
+	import Hero from '@components/Hero'
+	import Contact from '@components/Contact'
 ---
-<Layout class="flex flex-col justify-center items-center gap-10">
-	<Top />
-	
-	<Hero />
-	<ShortDesc />
 
-	<Projects />
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<title>MoraXh's Portfolio</title>
+	</head>
+	<body>
+    <div class="relative min-h-screen text-slate-200 selection:bg-cyan-500/30 selection:text-cyan-100">
+			<NeuronalBackground client:load />
+			<Navbar client:load />
 
-	<Contact class="animation-fade-in " />
-</Layout>
+			<main class="relative z-10">
+				<Hero />
+				<div class="space-y-24 pb-24">
+					<Contact client:load />
+				</div>
+			</main>
 
-{entryAnimationDisabled && (
-	<style is:global>
-		.animation-fade-in,
-		.bg-light {
-			animation-name: none !important;
-		}
-	</style>
-)}
+
+		</div>
+		<Toaster client:load position="bottom-right" />
+	</body>
+</html>

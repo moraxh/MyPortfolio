@@ -1,8 +1,0 @@
----
-	import StatsCard from "../../common/StatsCard.astro"
-  import { getOrSetGithubData } from "@utils/cookieUtils"
-
-  const githubData = await getOrSetGithubData(Astro)
----
-
-<StatsCard class="!justify-between bg-primary text-bg" primary={githubData.c} secondary="GITHUB REPOSITORIES" />
