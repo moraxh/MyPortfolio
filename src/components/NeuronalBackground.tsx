@@ -5,15 +5,24 @@ export default function NeuronalBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
+    let ticking = false
+
     const handleScroll = () => {
-      const scrollY = window.scrollY
-      const newAlpha = Math.max(0.1, 1 - scrollY / 1000)
-      setBlurAlpha(1 - newAlpha)
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrollY = window.scrollY
+          const newAlpha = Math.max(0.1, 1 - scrollY / 1000)
+          setBlurAlpha(1 - newAlpha)
+          ticking = false
+        })
+        ticking = true
+      }
     }
+
     handleScroll()
-    window.addEventListener('scroll', handleScroll)
+    window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
-  })
+  }, [])
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -36,8 +45,8 @@ export default function NeuronalBackground() {
     resizeCanvas()
 
     const particles: Particle[] = []
-    const particleCount = Math.min(Math.floor((width * height) / 8000), 100) * 0.7
-    const connectionDistance = 250
+    const particleCount = Math.min(Math.floor((width * height) / 15000), 50)
+    const connectionDistance = 200
 
     let time = 0
 

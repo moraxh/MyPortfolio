@@ -8,8 +8,26 @@ import react from '@astrojs/react';
 // https://astro.build/config
 export default defineConfig({
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss()],
+    build: {
+      minify: 'esbuild',
+      cssMinify: true,
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            'react-vendor': ['react', 'react-dom'],
+            'ui': ['lucide-react', 'sonner']
+          }
+        }
+      }
+    }
   },
 
-  integrations: [react()]
+  build: {
+    inlineStylesheets: 'auto'
+  },
+
+  integrations: [react()],
+  
+  compressHTML: true
 });

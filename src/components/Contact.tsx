@@ -1,5 +1,5 @@
 import { Tooltip, TooltipContent, TooltipTrigger } from "@layouts/components/ui/tooltip";
-import { Github, Linkedin, Mail, Clipboard } from "lucide-react";
+import { Github, Linkedin, Mail } from "lucide-react";
 import { toast } from "sonner"
 
 export default function Contact() {
