@@ -35,6 +35,14 @@ export default function NeuronalBackground() {
     let height = window.innerHeight
     let animationFrameId: number
 
+    let mouseX: number | null = null
+    let mouseY: number | null = null
+
+    const onMouseMove = (e: MouseEvent) => {
+      mouseX = e.clientX
+      mouseY = e.clientY
+    }
+
     const resizeCanvas = () => {
       width = window.innerWidth
       height = window.innerHeight
@@ -66,6 +74,22 @@ export default function NeuronalBackground() {
       }
 
       update() {
+        // Get attraction to mouse
+        if (mouseX !== null && mouseY !== null) {
+          const dx = mouseX - this.x
+          const dy = mouseY - this.y
+          const distSq = dx * dx + dy * dy
+
+          const attractionRadius = 150
+
+          if (distSq < attractionRadius * attractionRadius) {
+            const dist = Math.sqrt(distSq)
+            const force = (attractionRadius - dist) / attractionRadius * 0.03
+            this.vx += (dx / dist) * force
+            this.vy += (dy / dist) * force
+          }
+        }
+
         this.x += this.vx
         this.y += this.vy
 
@@ -149,11 +173,19 @@ export default function NeuronalBackground() {
       resizeCanvas()
     }
 
-    window.addEventListener('resize', handleResize)
+    // Disable on touch devices
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0
+
+    if (!isTouchDevice) {
+      window.addEventListener('resize', handleResize)
+    }
+
+    window.addEventListener('mousemove', onMouseMove)
 
     // Cleanup on unmount
     return () => {
       window.removeEventListener('resize', handleResize)
+      window.removeEventListener('mousemove', onMouseMove)
       cancelAnimationFrame(animationFrameId)
     }
   }, [])
