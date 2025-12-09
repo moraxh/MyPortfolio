@@ -4,6 +4,8 @@
   import '@styles/global.css'
 
 	import { Toaster } from '@layouts/components/ui/sonner'
+	import Analytics from '@vercel/analytics/astro'
+	import SpeedInsights from '@vercel/speed-insights/astro'
 
 	import NeuronalBackground from '@components/NeuronalBackground'
 	import Navbar from '@components/Navbar'
@@ -32,6 +34,9 @@
 
 
 		</div>
+
 		<Toaster client:load position="bottom-right" />
+		<Analytics />
+		<SpeedInsights />
 	</body>
 </html>
