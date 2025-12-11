@@ -12,7 +12,7 @@ export default function About() {
   }, [])
 
   const stats = [
-    { label: "Years of Experience", value: `+${yearsOfExperience}`, icon: <User className="w-6 h-6 text-cyan-400" /> },
+    { label: "Years of Experience", value: `${yearsOfExperience}+`, icon: <User className="w-6 h-6 text-cyan-400" /> },
     { label: "Projects Completed", value: "25+", icon: <Code className="w-6 h-6 text-purple-400" /> },
     { label: "Technologies Mastered", value: "20+", icon: <Target className="w-6 h-6 text-emerald-400" /> },
     { label: "Organizations Served", value: "2+", icon: <Heart className="w-6 h-6 text-pink-400" /> }
