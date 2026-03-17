@@ -14,7 +14,15 @@ interface Project {
   image: string
 }
 
+const newLocal = ""
 const projects: Project[] = [
+  { 
+    title: "al1A",
+    description: "I led a team to build a SaaS platform designed to manage and optimize organizational talent through automation tools and AI-driven insights. The system leveraged machine learning to identify performance patterns, uncover areas for improvement, and generate actionable workforce intelligence. I served as both the software architect and technical lead, overseeing system design, scalability, and implementation.",
+    tags: ["Microservices", "DevOps", "Docker", "Kubernetes"],
+    links: {},
+    image: "/projects/al1a.png"
+  },
   {
     title: "Guion App",
     description: "A business web application designed to manage a radio news station, overseeing and supervising employee activities using WordPress and Facebook APIs. It also includes the management of a Facebook page for process automation.",
@@ -23,13 +31,11 @@ const projects: Project[] = [
     image: "/projects/guionapp.png"
   },
   {
-    title: "NeuraZam",
-    description: "A real-time music detection system that uses convolutional neural networks to identify songs from live audio input through the user's microphone.",
-    tags: ["Astro", "Docker", "Python", "Typescript", "Pytorch"],
-    links: {
-      github: "https://github.com/moraxh/NeuraZam"
-    },
-    image: "/projects/neurazam.png"
+    title: "El Salmantino Hub",
+    description: "An internal platform for a newspaper designed to manage newsroom operations and administrative processes. It included features for scheduling journalistic shifts, handling payroll, tracking commissions, managing expenses, and administering employee loans, providing a centralized system to streamline both editorial and financial workflows.",
+    tags: ["Microservices", "Docker", "Kubernetes", "Python", "Node.js"],
+    links: {},
+    image: "/projects/salmantino-hub.jpeg"
   },
   {
     title: "Thermodynamics Lab Web",
@@ -39,6 +45,22 @@ const projects: Project[] = [
       github: "https://github.com/moraxh/Thermodynamics-Lab-Web"
     },
     image: "/projects/thermodynamics-lab.png"
+  },
+  {
+    title: "Weather Video Parser",
+    description: "A desktop application designed to automate the production of weather forecast videos with a consistent format and visual style. The system streamlined the editing pipeline by integrating pre-rendered assets with dynamic content generation using FFmpeg. It leveraged speech-to-text capabilities (Whisper) and NLP techniques to process and structure weather data, enabling efficient, scalable, and semi-automated video creation.",
+    tags: ["Electron", "Python"],
+    links: {},
+    image: "/projects/weather-video-parser.png"
+  },
+  {
+    title: "NeuraZam",
+    description: "A real-time music detection system that uses convolutional neural networks to identify songs from live audio input through the user's microphone.",
+    tags: ["Astro", "Docker", "Python", "Typescript", "Pytorch"],
+    links: {
+      github: "https://github.com/moraxh/NeuraZam"
+    },
+    image: "/projects/neurazam.png"
   },
   {
     title: "Product Weighing System",
