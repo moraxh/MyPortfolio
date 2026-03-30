@@ -31,11 +31,13 @@ const projects: Project[] = [
     image: "/projects/guionapp.png"
   },
   {
-    title: "El Salmantino Hub",
-    description: "An internal platform for a newspaper designed to manage newsroom operations and administrative processes. It included features for scheduling journalistic shifts, handling payroll, tracking commissions, managing expenses, and administering employee loans, providing a centralized system to streamline both editorial and financial workflows.",
-    tags: ["Microservices", "Docker", "Kubernetes", "Python", "Node.js"],
-    links: {},
-    image: "/projects/salmantino-hub.jpeg"
+    title: "Aether Archive",
+    description: "NASA has one of the largest image archives ever, but its search tool falls short. Aether Archive fixes that with a better interface using NASA’s public API, free and unaffiliated.",
+    tags: ["Next.js", "React", "Tailwind CSS", "NASA API", "Motion"],
+    links: {
+      demo: "https://aether-archive.vercel.app/"
+    },
+    image: "/projects/aether-archive.png"
   },
   {
     title: "Thermodynamics Lab Web",
@@ -45,6 +47,22 @@ const projects: Project[] = [
       github: "https://github.com/moraxh/Thermodynamics-Lab-Web"
     },
     image: "/projects/thermodynamics-lab.png"
+  },
+  {
+    title: "DICIS Tracker",
+    description: "This is a fast, lightweight tool designed specifically for students at DICIS (Engineering Division, Irapuato–Salamanca Campus, University of Guanajuato) to quickly find available classrooms or professors in real time.",
+    tags: ["Python", "Next.js", "Web Scraping", "Motion"],
+    links: {
+      demo: "https://dicis-tracker.vercel.app/"
+    },
+    image: "/projects/dicis-tracker.png"
+  },
+  {
+    title: "El Salmantino Hub",
+    description: "An internal platform for a newspaper designed to manage newsroom operations and administrative processes. It included features for scheduling journalistic shifts, handling payroll, tracking commissions, managing expenses, and administering employee loans, providing a centralized system to streamline both editorial and financial workflows.",
+    tags: ["Microservices", "Docker", "Kubernetes", "Python", "Node.js"],
+    links: {},
+    image: "/projects/salmantino-hub.jpeg"
   },
   {
     title: "Weather Video Parser",
