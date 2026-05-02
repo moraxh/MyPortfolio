@@ -14,7 +14,6 @@ interface Project {
   image: string
 }
 
-const newLocal = ""
 const projects: Project[] = [
   { 
     title: "al1A",
@@ -24,13 +23,6 @@ const projects: Project[] = [
     image: "/projects/al1a.png"
   },
   {
-    title: "Guion App",
-    description: "A business web application designed to manage a radio news station, overseeing and supervising employee activities using WordPress and Facebook APIs. It also includes the management of a Facebook page for process automation.",
-    tags: ["Laravel", "PHP", "JQuery", "MySQL", "Firebase"],
-    links: {},
-    image: "/projects/guionapp.png"
-  },
-  {
     title: "Aether Archive",
     description: "NASA has one of the largest image archives ever, but its search tool falls short. Aether Archive fixes that with a better interface using NASA’s public API, free and unaffiliated.",
     tags: ["Next.js", "React", "Tailwind CSS", "NASA API", "Motion"],
@@ -38,6 +30,15 @@ const projects: Project[] = [
       demo: "https://aether-archive.vercel.app/"
     },
     image: "/projects/aether-archive.png"
+  },
+  {
+    title: "Mis Lineas",
+    description: "MisLíneas is a web tool that aggregates mobile carriers and MVNOs in Mexico to let users check all phone lines registered under their CURP in a single query, helping detect identity misuse and unauthorized registrations in real time.",
+    tags: ["Next.js", "React", "TypeScript", "Tailwind CSS",],
+    links: {
+      demo: "https://mislineas.com.mx"
+    },
+    image: "/projects/mislineas.png"
   },
   {
     title: "Thermodynamics Lab Web",
@@ -63,6 +64,13 @@ const projects: Project[] = [
     tags: ["Microservices", "Docker", "Kubernetes", "Python", "Node.js"],
     links: {},
     image: "/projects/salmantino-hub.jpeg"
+  },
+  {
+    title: "Guion App",
+    description: "A business web application designed to manage a radio news station, overseeing and supervising employee activities using WordPress and Facebook APIs. It also includes the management of a Facebook page for process automation.",
+    tags: ["Laravel", "PHP", "JQuery", "MySQL", "Firebase"],
+    links: {},
+    image: "/projects/guionapp.png"
   },
   {
     title: "Weather Video Parser",
