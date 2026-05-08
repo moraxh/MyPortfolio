@@ -23,13 +23,13 @@ const projects: Project[] = [
     image: "/projects/al1a.png"
   },
   {
-    title: "Aether Archive",
-    description: "NASA has one of the largest image archives ever, but its search tool falls short. Aether Archive fixes that with a better interface using NASA’s public API, free and unaffiliated.",
-    tags: ["Next.js", "React", "Tailwind CSS", "NASA API", "Motion"],
-    links: {
-      demo: "https://aether-archive.vercel.app/"
+    title: "FrameFind",
+    description: "FrameFind is a privacy-first, on-device computer vision system that detects whether a person is wearing glasses in real time. It runs entirely locally in the browser via WebAssembly or in Node.js using ONNX Runtime, eliminating the need for server-side inference. The system uses MediaPipe for face landmark detection, crops the eye region, and feeds a lightweight ONNX model (~6.2 MB) to produce probabilistic predictions with temporal smoothing. I designed the architecture for low-latency, offline-first performance with support for both WASM and WebGPU acceleration, and implemented a modular framework that enables additional face-related detectors to be added as independent packages within the same ecosystem.",
+    tags: ["ONNX", "WebAssembly", "WebGPU", "MediaPipe", "Computer Vision", "Edge AI", "React", "Node.js", "TypeScript"],
+    links: { 
+      demo: "https://framefind.moraxh.dev"
     },
-    image: "/projects/aether-archive.png"
+    image: "/projects/framefind.png" 
   },
   {
     title: "Mis Lineas",
@@ -39,6 +39,15 @@ const projects: Project[] = [
       demo: "https://mislineas.com.mx"
     },
     image: "/projects/mislineas.png"
+  },
+  {
+    title: "Aether Archive",
+    description: "NASA has one of the largest image archives ever, but its search tool falls short. Aether Archive fixes that with a better interface using NASA’s public API, free and unaffiliated.",
+    tags: ["Next.js", "React", "Tailwind CSS", "NASA API", "Motion"],
+    links: {
+      demo: "https://aether-archive.vercel.app/"
+    },
+    image: "/projects/aether-archive.png"
   },
   {
     title: "Thermodynamics Lab Web",
