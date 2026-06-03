@@ -8,6 +8,11 @@ import react from '@astrojs/react';
 // https://astro.build/config
 export default defineConfig({
   vite: {
+    resolve: {
+      alias: {
+        "@": "/home/moraxh/Desktop/Personal/MyPortfolio/src",
+      },
+    },
     plugins: [tailwindcss()],
     build: {
       minify: 'esbuild',

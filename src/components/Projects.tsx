@@ -1,224 +1,119 @@
 import { useState } from "react"
-import { motion, AnimatePresence } from "motion/react"
-import { ExternalLink, Github, Code2 } from "lucide-react"
-import Image from "@components/common/Image"
-
-interface Project {
-  title: string
-  description: string
-  tags: string[]
-  links: {
-    github?: string
-    demo?: string
-  }
-  image: string
-}
-
-const projects: Project[] = [
-  { 
-    title: "al1A",
-    description: "I led a team to build a SaaS platform designed to manage and optimize organizational talent through automation tools and AI-driven insights. The system leveraged machine learning to identify performance patterns, uncover areas for improvement, and generate actionable workforce intelligence. I served as both the software architect and technical lead, overseeing system design, scalability, and implementation.",
-    tags: ["Microservices", "DevOps", "Docker", "Kubernetes"],
-    links: {},
-    image: "/projects/al1a.png"
-  },
-  {
-    title: "FrameFind",
-    description: "FrameFind is a privacy-first, on-device computer vision system that detects whether a person is wearing glasses in real time. It runs entirely locally in the browser via WebAssembly or in Node.js using ONNX Runtime, eliminating the need for server-side inference. The system uses MediaPipe for face landmark detection, crops the eye region, and feeds a lightweight ONNX model (~6.2 MB) to produce probabilistic predictions with temporal smoothing. I designed the architecture for low-latency, offline-first performance with support for both WASM and WebGPU acceleration, and implemented a modular framework that enables additional face-related detectors to be added as independent packages within the same ecosystem.",
-    tags: ["ONNX", "WebAssembly", "WebGPU", "MediaPipe", "Computer Vision", "Edge AI", "React", "Node.js", "TypeScript"],
-    links: { 
-      demo: "https://framefind.moraxh.dev"
-    },
-    image: "/projects/framefind.png" 
-  },
-  {
-    title: "Mis Lineas",
-    description: "MisLíneas is a web tool that aggregates mobile carriers and MVNOs in Mexico to let users check all phone lines registered under their CURP in a single query, helping detect identity misuse and unauthorized registrations in real time.",
-    tags: ["Next.js", "React", "TypeScript", "Tailwind CSS",],
-    links: {
-      demo: "https://mislineas.com.mx"
-    },
-    image: "/projects/mislineas.png"
-  },
-  {
-    title: "Aether Archive",
-    description: "NASA has one of the largest image archives ever, but its search tool falls short. Aether Archive fixes that with a better interface using NASA’s public API, free and unaffiliated.",
-    tags: ["Next.js", "React", "Tailwind CSS", "NASA API", "Motion"],
-    links: {
-      demo: "https://aether-archive.vercel.app/"
-    },
-    image: "/projects/aether-archive.png"
-  },
-  {
-    title: "Thermodynamics Lab Web",
-    description: "A web application for a thermodynamics lab located in the Division of Engineering at the University of Guanajuato.",
-    tags: ["Astro", "Tailwind CSS", "PostgreSQL"],
-    links: {
-      github: "https://github.com/moraxh/Thermodynamics-Lab-Web"
-    },
-    image: "/projects/thermodynamics-lab.png"
-  },
-  {
-    title: "DICIS Tracker",
-    description: "This is a fast, lightweight tool designed specifically for students at DICIS (Engineering Division, Irapuato–Salamanca Campus, University of Guanajuato) to quickly find available classrooms or professors in real time.",
-    tags: ["Python", "Next.js", "Web Scraping", "Motion"],
-    links: {
-      demo: "https://dicis-tracker.vercel.app/"
-    },
-    image: "/projects/dicis-tracker.png"
-  },
-  {
-    title: "El Salmantino Hub",
-    description: "An internal platform for a newspaper designed to manage newsroom operations and administrative processes. It included features for scheduling journalistic shifts, handling payroll, tracking commissions, managing expenses, and administering employee loans, providing a centralized system to streamline both editorial and financial workflows.",
-    tags: ["Microservices", "Docker", "Kubernetes", "Python", "Node.js"],
-    links: {},
-    image: "/projects/salmantino-hub.jpeg"
-  },
-  {
-    title: "Guion App",
-    description: "A business web application designed to manage a radio news station, overseeing and supervising employee activities using WordPress and Facebook APIs. It also includes the management of a Facebook page for process automation.",
-    tags: ["Laravel", "PHP", "JQuery", "MySQL", "Firebase"],
-    links: {},
-    image: "/projects/guionapp.png"
-  },
-  {
-    title: "Weather Video Parser",
-    description: "A desktop application designed to automate the production of weather forecast videos with a consistent format and visual style. The system streamlined the editing pipeline by integrating pre-rendered assets with dynamic content generation using FFmpeg. It leveraged speech-to-text capabilities (Whisper) and NLP techniques to process and structure weather data, enabling efficient, scalable, and semi-automated video creation.",
-    tags: ["Electron", "Python"],
-    links: {},
-    image: "/projects/weather-video-parser.png"
-  },
-  {
-    title: "NeuraZam",
-    description: "A real-time music detection system that uses convolutional neural networks to identify songs from live audio input through the user's microphone.",
-    tags: ["Astro", "Docker", "Python", "Typescript", "Pytorch"],
-    links: {
-      github: "https://github.com/moraxh/NeuraZam"
-    },
-    image: "/projects/neurazam.png"
-  },
-  {
-    title: "Product Weighing System",
-    description: "A desktop application for a grocery store that allows users to weigh products and print labels with the weight and barcode.",
-    tags: ["Electron", "Tailwind CSS"],
-    links: {},
-    image: "/projects/weighing-system.png"
-  },
-  {
-    title: "SignSense",
-    description: "A real-time sign language recognition web application that uses machine learning to detect and classify American Sign Language (ASL) alphabet letters through camera input.",
-    tags: ["Astro", "Docker", "Python", "Typescript"],
-    links: {
-      github: "https://github.com/moraxh/SignSense"
-    },
-    image: "/projects/signsense.png"
-  },
-]
+import SectionLabel from "@components/common/SectionLabel"
+import Icon from "@components/common/Icon"
+import { PROJECTS, PROJECT_CATS, type ProjectCat } from "@/data"
 
 export default function Projects() {
-  const [visibleCount, setVisibleCount] = useState(3)
-  
-  const visibleProjects = projects.slice(0, visibleCount)
-  const hasMore = visibleCount < projects.length
+  const [filter, setFilter] = useState<ProjectCat>("All")
+  const [open, setOpen] = useState<number | null>(null)
 
-  const loadMore = () => {
-    setVisibleCount(prev => prev + 3)
-  }
+  const shown = PROJECTS.filter((p) => filter === "All" || p.cat === filter)
 
   return (
-    <section id="projects" className="py-20 px-4 relative">
-      <div className="max-w-6xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 font-sans">
-            Featured <span className="text-cyan-400">Projects</span>
-          </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto text-lg">
-            A selection of my recent work, ranging from web applications to AI experiments.
-          </p>
-        </motion.div>
+    <section className="block" id="projects">
+      <div className="wrap">
+        <SectionLabel idx="04" title="Projects" />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <AnimatePresence mode="popLayout">
-            {visibleProjects.map((project, index) => (
-              <motion.div
-                key={project.title}
-                layout
-                initial={{ opacity: 0, y: 20, scale: 0.9 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                whileHover={{ y: -8, scale: 1.02 }}
-                transition={{ duration: 0.3, delay: index * 0.1 }}
-                className="group relative bg-slate-900/50 border border-slate-800 rounded-xl overflow-hidden hover:border-cyan-500/50 transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,240,255,0.1)] flex flex-col cursor-pointer"
-              >
-                <div className={`h-48 w-full bg-linear-to-br from-purple-500/20 to-blue-500/20 relative overflow-hidden group-hover:scale-105 transition-transform duration-500`}>
-                  <Image
-                    src={project.image}
-                    alt={project.title}
-                    className="object-cover w-full h-full"
-                    fallback={(
-                      <div className="absolute inset-0 flex items-center justify-center bg-slate-800">
-                        <Code2 className="text-white/20 w-16 h-16" />
-                      </div>
-                    )}
-                  />
-                  {(project.links?.github || project.links?.demo) && (
-                    <div className="absolute inset-0 bg-slate-950/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4 backdrop-blur-sm">
-                      {project.links.github && (
-                        <a href={project.links.github} aria-label="Github Project" target="_blank" rel="noopener noreferrer" className="p-2 bg-slate-800 rounded-full hover:bg-cyan-500 hover:text-white transition-colors text-cyan-400">
-                          <Github size={20} />
-                        </a>
-                      )}
-                      {project.links.demo && (
-                        <a href={project.links.demo} aria-label="Demo Page" target="_blank" rel="noopener noreferrer" className="p-2 bg-slate-800 rounded-full hover:bg-cyan-500 hover:text-white transition-colors text-cyan-400">
-                          <ExternalLink size={20} />
-                        </a>
-                      )}
-                    </div>
-                  )}
-                </div>
-
-                <div className="p-6 flex flex-col grow">
-                  <h3 className="text-xl font-bold text-white mb-2 font-sans group-hover:text-cyan-400 transition-colors">
-                    {project.title}
-                  </h3>
-                  <p className="text-gray-400 mb-4 text-sm line-clamp-3 grow">
-                    {project.description}
-                  </p>
-                  <div className="flex flex-wrap gap-2 mt-auto">
-                    {project.tags.map((tag, tagIndex) => (
-                      <span key={tagIndex} className="px-2 py-1 text-xs font-mono text-cyan-300 bg-cyan-950/30 border border-cyan-900/50 rounded">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
+        <div className="proj-filters reveal">
+          {PROJECT_CATS.map((cat) => (
+            <button
+              key={cat}
+              className={`filter-btn${filter === cat ? " on" : ""}`}
+              onClick={() => { setFilter(cat); setOpen(null) }}
+            >
+              {cat}
+            </button>
+          ))}
         </div>
 
-        {hasMore && (
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="mt-12 text-center"
-          >
-            <motion.button 
-              onClick={loadMore}
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-8 py-3 bg-slate-800 hover:bg-slate-700 text-cyan-400 border border-cyan-500/30 rounded-full font-mono transition-all hover:shadow-[0_0_15px_rgba(0,240,255,0.2)] cursor-pointer"
-            >
-              Show More Projects
-            </motion.button>
-          </motion.div>
-        )}
+        <div className="proj-list reveal">
+          {shown.map((proj, idx) => {
+            const globalIdx = PROJECTS.indexOf(proj)
+            const isOpen = open === globalIdx
+            return (
+              <article className={`proj${isOpen ? " open" : ""}`} key={globalIdx}>
+                <button
+                  className="proj-head"
+                  onClick={() => setOpen(isOpen ? null : globalIdx)}
+                  aria-expanded={isOpen}
+                >
+                  <span className="proj-num">{String(idx + 1).padStart(2, "0")}</span>
+                  <span className="proj-title-wrap">
+                    <span className="proj-title">{proj.title}</span>
+                    <span className="proj-tag-line">
+                      <span className="cat">{proj.cat}</span>
+                      <span>·</span>
+                      <span>{proj.kicker}</span>
+                    </span>
+                  </span>
+                  <span className="proj-toggle">
+                    <Icon name="plus" size={16} />
+                  </span>
+                </button>
+
+                <div className="proj-detail">
+                  <div className="proj-detail-inner">
+                    <div className="proj-body">
+                      <div>
+                        <div className="cs-block">
+                          <div className="cs-k">Problem</div>
+                          <p>{proj.problem}</p>
+                        </div>
+                        <div className="cs-block">
+                          <div className="cs-k">Solution</div>
+                          <p>{proj.solution}</p>
+                        </div>
+                        <div className="cs-block">
+                          <div className="cs-k">Result</div>
+                          <p>{proj.result}</p>
+                        </div>
+                      </div>
+
+                      <div className="proj-side">
+                        <div className="proj-thumb">
+                          <img src={proj.image} alt={proj.title} loading="lazy" />
+                        </div>
+                        <div className="meta-grid">
+                          <div className="meta-cell">
+                            <span className="mk">Role</span>
+                            <span className="mv">{proj.role}</span>
+                          </div>
+                          {Object.entries(proj.meta).map(([k, v]) => (
+                            <div className="meta-cell" key={k}>
+                              <span className="mk">{k}</span>
+                              <span className="mv">{v}</span>
+                            </div>
+                          ))}
+                        </div>
+                        <div className="proj-stack">
+                          {proj.stack.map((s, j) => (
+                            <span className="tag" key={j}>{s}</span>
+                          ))}
+                        </div>
+                        {proj.links.length > 0 && (
+                          <div className="proj-links">
+                            {proj.links.map((link, j) => (
+                              <a
+                                key={j}
+                                className="icon-link"
+                                href={link.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                <Icon name={link.type === "github" ? "github" : "external"} size={14} />
+                                {link.label}
+                              </a>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            )
+          })}
+        </div>
       </div>
     </section>
   )

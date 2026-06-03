@@ -1,58 +1,63 @@
 ---
-import "@fontsource/space-grotesk";
+import "@fontsource/archivo/400.css";
+import "@fontsource/archivo/500.css";
+import "@fontsource/archivo/600.css";
 import "@fontsource/jetbrains-mono";
 import "@styles/global.css";
 
-import { Toaster } from "@layouts/components/ui/sonner";
 import Analytics from "@vercel/analytics/astro";
 import SpeedInsights from "@vercel/speed-insights/astro";
 
-import NeuronalBackground from "@components/NeuronalBackground";
-import ScrollProgress from "@components/ScrollProgress";
+import RevealObserver from "@components/RevealObserver";
 import Navbar from "@components/Navbar";
 import Hero from "@components/Hero";
 import About from "@components/About";
-import Projects from "@components/Projects";
-import Skills from "@components/Skills";
 import Experience from "@components/Experience";
+import Skills from "@components/Skills";
+import Projects from "@components/Projects";
 import Contact from "@components/Contact";
-import { ClientRouter } from "astro:transitions";
 ---
 
 <html lang="en">
   <head>
-    <ClientRouter />
     <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/x-icon" href="/logo.ico" />
+    <link rel="apple-touch-icon" href="/logo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="Full Stack Developer & AI Engineer portfolio - MoraXh"
+      content="Jorge Mora, Software engineer building practical AI systems, web platforms, and internal tools."
     />
-    <title>MoraXh's Portfolio</title>
+    <title>Jorge Mora · Portfolio</title>
   </head>
   <body>
-    <div
-      class="relative min-h-screen text-slate-200 selection:bg-cyan-500/30 selection:text-cyan-100"
-    >
-      <ScrollProgress client:load />
-      <NeuronalBackground client:visible />
-      <Navbar client:idle />
+    <div class="page-grain" style="position:relative;z-index:0;">
+      <Navbar client:load />
 
-      <main class="relative z-10">
-        <Hero client:visible />
+      <main style="position:relative;z-index:1;">
+        <Hero client:load />
         <About client:visible />
-        <Projects client:visible />
-        <Skills client:visible />
         <Experience client:visible />
-        <div class="space-y-24 pb-24">
-          <Contact client:visible />
-        </div>
+        <Skills client:visible />
+        <Projects client:visible />
+        <Contact client:visible />
       </main>
+
+      <footer class="footer">
+        <div class="wrap footer-inner">
+          <span class="mono">© 2026 · Designed & built by Jorge Mora</span>
+          <span class="mono">Warm graphite · editorial system</span>
+        </div>
+      </footer>
     </div>
 
-    <Toaster client:idle position="bottom-right" />
     <Analytics />
     <SpeedInsights />
+
+    <script>
+      // Boot RevealObserver after hydration — handles .reveal elements
+    </script>
   </body>
 </html>
+
+<RevealObserver client:load />

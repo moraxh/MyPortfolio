@@ -1,174 +1,104 @@
-import { useEffect, useState } from "react"
-import { Hexagon, Menu, X } from 'lucide-react'
-import { AnimatePresence, motion } from "motion/react"
-
-export function AnimatedMenuIcon({ open } : { open: boolean }) {
-  return (
-    <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      {/* Línea superior */}
-      <motion.line
-        x1="4"
-        y1="6"
-        x2="20"
-        y2="6"
-        animate={
-          open
-            ? {
-                y1: 12,
-                y2: 12,
-                rotate: 45,
-                originX: "50%",
-                originY: "50%",
-              }
-            : {
-                y1: 6,
-                y2: 6,
-                rotate: 0,
-              }
-        }
-        transition={{ duration: 0.25 }}
-      />
-
-      {/* Línea central */}
-      <motion.line
-        x1="4"
-        y1="12"
-        x2="20"
-        y2="12"
-        animate={open ? { opacity: 0 } : { opacity: 1 }}
-        transition={{ duration: 0.2 }}
-      />
-
-      {/* Línea inferior */}
-      <motion.line
-        x1="4"
-        y1="18"
-        x2="20"
-        y2="18"
-        animate={
-          open
-            ? {
-                y1: 12,
-                y2: 12,
-                rotate: -45,
-                originX: "50%",
-                originY: "50%",
-              }
-            : {
-                y1: 18,
-                y2: 18,
-                rotate: 0,
-              }
-        }
-        transition={{ duration: 0.25 }}
-      />
-    </svg>
-  );
-}
+import { useEffect, useState, useCallback } from "react"
+import Icon from "@components/common/Icon"
+import { META, NAV_LINKS } from "@/data"
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [drawer, setDrawer] = useState(false)
+  const [active, setActive] = useState("top")
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50)
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    const onScroll = () => setScrolled(window.scrollY > 12)
+    onScroll()
+    window.addEventListener("scroll", onScroll, { passive: true })
+    return () => window.removeEventListener("scroll", onScroll)
   }, [])
 
-  const navLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Experience', href: '#experience' },
-    { name: 'Contact', href: '#contact' },
-  ]
+  useEffect(() => {
+    const ids = ["top", ...NAV_LINKS.map((l) => l.id)]
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((en) => { if (en.isIntersecting) setActive(en.target.id) })
+      },
+      { rootMargin: "-45% 0px -50% 0px", threshold: 0 }
+    )
+    ids.forEach((id) => { const el = document.getElementById(id); if (el) io.observe(el) })
+    return () => io.disconnect()
+  }, [])
+
+  const go = useCallback((id: string) => {
+    setDrawer(false)
+    if (id === "top") { window.scrollTo({ top: 0, behavior: "smooth" }); return }
+    const el = document.getElementById(id)
+    if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 64, behavior: "smooth" })
+  }, [])
 
   return (
-    <nav className={`fixed w-full z-40 transition-all border-white/10 duration-300 ${scrolled ? 'bg-slate-950/70 backdrop-blur-lg border-b py-4' : 'bg-transparent py-6'}`}>
-      <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-        
-        {/* Logo */}
-        <motion.a 
-          href="#home" 
-          className="flex items-center gap-2 group"
-          animate={{ 
-            y: [ -50, 0 ], 
-            transition: { 
-              duration: 0.5, 
-              delay: 0.2, 
-              ease: 'easeInOut' 
-            } 
-          }}
-        >
-           <Hexagon className="text-cyan-500 group-hover:rotate-180 transition-transform duration-500" />
-           <span className="font-bold text-xl text-white tracking-wider font-mono">MORAXH<span className="text-cyan-500">.DEV</span></span>
-        </motion.a>
+    <>
+      <nav className={`pf-nav${scrolled ? " scrolled" : ""}`}>
+        <div className="nav-inner">
+          <button
+            className="brand"
+            style={{ background: "none", border: "none", cursor: "pointer", color: "inherit", padding: 0 }}
+            onClick={() => go("top")}
+          >
+            <picture>
+              <source srcSet="/logo_light.png" media="(prefers-color-scheme: light)" />
+              <img src="/logo.png" alt="MoraXH logo" width={26} height={26} style={{ display: "block" }} />
+            </picture>
+            <span>Jorge Mora</span>
+            <span className="dot" />
+          </button>
 
-        {/* Desktop Menu */}
-        <div className="hidden md:flex items-center gap-8">
-          {navLinks.map((link, i) => (
-            <motion.a 
-              key={link.name} 
-              href={link.href} 
-              className="text-gray-400 hover:text-cyan-400 font-mono text-sm uppercase tracking-widest transition-colors after:content-[''] after:block after:bg-cyan-400 after:h-0.5 after:right-full after:relative overflow-hidden hover:after:right-0 after:transition-all after:duration-300"
-              animate={{ 
-                y: [ -50, 0 ], 
-                transition: { 
-                  duration: 0.5,
-                  delay: 0.4 + i * 0.1, 
-                  ease: 'easeInOut' 
-                }
-              }}
-            >
-              {link.name}
-            </motion.a>
-          ))}
-        </div>
-
-        {/* Mobile Button */}
-        <button className="md:hidden text-white" onClick={() => setIsOpen(!isOpen)}>
-          <AnimatedMenuIcon open={isOpen} />
-        </button>
-      </div>
-
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div 
-            key="mobile-menu"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20, }}
-            transition={{ duration: 0.3, ease: 'easeInOut' }}
-            className="md:hidden absolute top-full left-0 w-full bg-slate-950 border-b border-gray-800 p-6 flex flex-col gap-4">
-            {navLinks.map((link, i) => (
-              <motion.a 
-                key={link.name} 
-                href={link.href} 
-                className="text-gray-300 hover:text-cyan-400 font-mono text-lg"
-                onClick={() => setIsOpen(false)}
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -10 }}
-                transition={{ duration: 0.2, ease: 'easeInOut', delay: 0.2 + i * 0.1 }}
+          <div className="nav-links">
+            {NAV_LINKS.map((link) => (
+              <button
+                key={link.id}
+                className={`nav-link${active === link.id ? " active" : ""}`}
+                style={{ background: "none", border: "none", cursor: "pointer" }}
+                onClick={() => go(link.id)}
               >
-                {link.name}
-              </motion.a>
+                {link.label}
+              </button>
             ))}
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </nav>
+          </div>
+
+          <div className="nav-right">
+            <a className="pf-btn sm" href={META.cvUrl} download>
+              <Icon name="download" className="ic" size={15} />
+              CV
+            </a>
+            <button className="iconbtn menu-btn" onClick={() => setDrawer(true)} aria-label="Open menu">
+              <Icon name="menu" size={18} />
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      <div className={`drawer${drawer ? " open" : ""}`}>
+        <div className="d-head">
+          <span className="brand">
+            <picture>
+              <source srcSet="/logo_light.png" media="(prefers-color-scheme: light)" />
+              <img src="/logo.png" alt="MoraXH logo" width={26} height={26} style={{ display: "block" }} />
+            </picture>
+            <span>Jorge Mora</span>
+          </span>
+          <button className="iconbtn" onClick={() => setDrawer(false)} aria-label="Close menu">
+            <Icon name="close" size={18} />
+          </button>
+        </div>
+        {NAV_LINKS.map((link, i) => (
+          <button
+            key={link.id}
+            className="drawer-link"
+            onClick={() => go(link.id)}
+          >
+            <span className="dn">{String(i + 1).padStart(2, "0")}</span>
+            {link.label}
+          </button>
+        ))}
+      </div>
+    </>
   )
 }
