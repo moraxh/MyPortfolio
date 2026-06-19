@@ -1,7 +1,7 @@
 export const META = {
   name: "Jorge Mora",
   handle: "MoraXH",
-  email: "jorgemorah671@gmail.com",
+  email: "contact@moraxh.dev",
   location: "México",
   github: "github.com/MoraXH",
   githubUrl: "https://github.com/moraxh",
@@ -308,7 +308,7 @@ export const CONTACT = {
   heading: ["Got something to build?", "Let's talk."],
   lede: "Open to engineering roles and freelance projects. Email is fastest — I usually reply the same day.",
   links: [
-    { label: "Email",    value: "jorgemorah671@gmail.com",        href: "mailto:jorgemorah671@gmail.com",                                  icon: "mail"     as const },
+    { label: "Email",    value: "contact@moraxh.dev",             href: "mailto:contact@moraxh.dev",                                         icon: "mail"     as const },
     { label: "LinkedIn", value: "in/jorge-emiliano-mora-herrera", href: "https://www.linkedin.com/in/jorge-emiliano-mora-herrera-919571256", icon: "linkedin" as const },
     { label: "GitHub",   value: "moraxh",                         href: "https://github.com/moraxh",                                         icon: "github"   as const },
     { label: "Résumé",   value: "Download PDF",                   href: "/cv/Jorge_Mora_CV.pdf",                                             icon: "doc"      as const },
