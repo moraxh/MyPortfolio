@@ -431,9 +431,9 @@ section.block + section.block { border-top: 1px solid var(--line-soft); }
   border: none;
   color: inherit;
   font-family: inherit;
-  transition: padding-left 0.3s var(--ease);
+  transition: transform 0.3s var(--ease);
 }
-.proj-head:hover { padding-left: 12px; }
+.proj-head:hover { transform: translateX(12px); }
 .proj-num { font-family: var(--font-mono); font-size: 13px; color: var(--ink-4); font-weight: 500; }
 .proj.open .proj-num { color: var(--accent-ink); }
 .proj-title-wrap { min-width: 0; }
@@ -501,10 +501,10 @@ section.block + section.block { border-top: 1px solid var(--line-soft); }
   display: flex; align-items: center; justify-content: space-between;
   padding: 16px 2px;
   border-top: 1px solid var(--line-soft);
-  transition: padding-left 0.3s var(--ease);
+  transition: transform 0.3s var(--ease);
 }
 .c-link:last-child { border-bottom: 1px solid var(--line-soft); }
-.c-link:hover { padding-left: 10px; }
+.c-link:hover { transform: translateX(10px); }
 .c-link .left { display: flex; align-items: center; gap: 14px; }
 .c-link .left svg { width: 17px; height: 17px; color: var(--ink-3); }
 .c-link:hover .left svg { color: var(--accent-ink); }
@@ -519,6 +519,12 @@ section.block + section.block { border-top: 1px solid var(--line-soft); }
 .footer { border-top: 1px solid var(--line-soft); padding: 34px 0; }
 .footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
 .footer .mono { font-size: 11px; }
+.footer-greeting { color: var(--ink-4); transition: color 0.3s var(--ease); }
+.footer-greeting:hover { color: var(--ink-3); }
+
+/* Clock hover (seconds reveal) */
+.clock-val { display: inline-block; transition: opacity 0.15s var(--ease); }
+.stat-row:hover .clock-val { opacity: 0.85; }
 
 /* ============================================================
    RESPONSIVE
@@ -537,6 +543,80 @@ section.block + section.block { border-top: 1px solid var(--line-soft); }
   .tl-when { padding-top: 0; }
   .proj-head { grid-template-columns: 36px 1fr auto; gap: 14px; }
   .hero-cta .pf-btn { flex: 1; justify-content: center; }
+}
+
+/* ============================================================
+   KONAMI EASTER EGG
+   ============================================================ */
+#konami-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+  display: grid;
+  place-items: center;
+  background: oklch(0.166 0.006 75 / 0.88);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  transition: opacity 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+#konami-overlay.konami-in { opacity: 1; }
+.konami-box {
+  border: 1px solid oklch(0.62 0.10 250 / 0.44);
+  border-radius: 10px;
+  background: oklch(0.196 0.006 75);
+  padding: 32px 36px;
+  max-width: 420px;
+  width: 90vw;
+  text-align: center;
+  transform: translateY(12px);
+  transition: transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+#konami-overlay.konami-in .konami-box { transform: none; }
+.konami-badge {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: oklch(0.74 0.09 250);
+  margin-bottom: 20px;
+}
+.konami-ascii {
+  font-family: "JetBrains Mono", "Courier New", Courier, monospace;
+  font-size: 12px;
+  line-height: 1.7;
+  color: oklch(0.78 0.006 85);
+  background: oklch(0.166 0.006 75);
+  border-radius: 6px;
+  padding: 16px;
+  text-align: left;
+  white-space: pre;
+  overflow-x: auto;
+  margin-bottom: 20px;
+  font-feature-settings: "liga" 0, "calt" 0;
+  font-variant-ligatures: none;
+  letter-spacing: 0;
+}
+.konami-note {
+  color: oklch(0.60 0.006 85);
+  font-size: 14px;
+  margin: 0 0 20px;
+  line-height: 1.5;
+}
+.konami-close {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: oklch(0.60 0.006 85);
+  background: none;
+  border: 1px solid oklch(0.30 0.006 75);
+  border-radius: 5px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+.konami-close:hover { color: oklch(0.945 0.006 85); border-color: oklch(0.60 0.006 85); }
+@media (prefers-reduced-motion: reduce) {
+  #konami-overlay, .konami-box { transition: none; }
 }
 
 /* Scrollbar */

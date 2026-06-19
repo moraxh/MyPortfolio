@@ -16,6 +16,7 @@ import Experience from "@components/Experience";
 import Skills from "@components/Skills";
 import Projects from "@components/Projects";
 import Contact from "@components/Contact";
+import Footer from "@components/Footer";
 ---
 
 <html lang="en">
@@ -43,20 +44,74 @@ import Contact from "@components/Contact";
         <Contact client:visible />
       </main>
 
-      <footer class="footer">
-        <div class="wrap footer-inner">
-          <span class="mono">© 2026 · Designed & built by Jorge Mora</span>
-          <span class="mono">Warm graphite · editorial system</span>
-        </div>
-      </footer>
+      <Footer client:visible />
     </div>
 
     <Analytics />
     <SpeedInsights />
 
-    <script>
-      // Boot RevealObserver after hydration — handles .reveal elements
+    <script is:inline>
+      // Console easter egg — for the devs who open F12
+      const s = [
+        "%c  Jorge Mora  ",
+        "background: oklch(0.62 0.10 250); color: oklch(0.16 0.02 250); font-size: 18px; font-weight: 700; padding: 6px 16px; border-radius: 4px;"
+      ]
+      const lines = [
+        "%cHey, I see you opened DevTools.",
+        "%cYou're probably a developer. So am I.",
+        "%cIf you want to see how this is built: github.com/moraxh",
+        "%cIf you want to work together: jorgemorah671@gmail.com",
+        "%c↑ ↑ ↓ ↓ ← → ← → B A  (you know what to do)",
+      ]
+      console.log(...s)
+      lines.forEach(l => console.log(l, "color: oklch(0.78 0.006 85); font-size: 13px;"))
+
+      // Konami code easter egg — guard against HMR duplicate listeners
+      if (!window.__konamiReady) {
+        window.__konamiReady = true
+        const KONAMI = ["ArrowUp","ArrowUp","ArrowDown","ArrowDown","ArrowLeft","ArrowRight","ArrowLeft","ArrowRight","b","a"]
+        let kIdx = 0
+        document.addEventListener("keydown", (e) => {
+          if (e.key === KONAMI[kIdx]) {
+            kIdx++
+            if (kIdx === KONAMI.length) {
+              kIdx = 0
+              const existing = document.getElementById("konami-overlay")
+              if (existing) existing.remove()
+              const overlay = document.createElement("div")
+              overlay.id = "konami-overlay"
+              overlay.innerHTML = `
+                <div class="konami-box">
+                  <div class="konami-badge">// easter egg unlocked</div>
+                  <div class="konami-ascii">
+┌───────────────────────────────────────┐
+│          Terry A. Davis               │
+│          1969 – 2018                  │
+├───────────────────────────────────────┤
+│                                       │
+│  "An idiot admires complexity,        │
+│   a genius admires simplicity."       │
+│                                       │
+│  Built an OS alone. 100,000 lines.    │
+│  Real GCC. Real kernel. Real God.     │
+│  The smartest programmer ever.        │
+│                                       │
+│          TempleOS forever.            │
+└───────────────────────────────────────┘</div>
+                  <p class="konami-note">You found it. Not bad.</p>
+                  <button class="konami-close" onclick="document.getElementById('konami-overlay').remove()">close ×</button>
+                </div>
+              `
+              document.body.appendChild(overlay)
+              setTimeout(() => overlay.classList.add("konami-in"), 10)
+            }
+          } else {
+            kIdx = e.key === KONAMI[0] ? 1 : 0
+          }
+        })
+      }
     </script>
+
   </body>
 </html>
 

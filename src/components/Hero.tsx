@@ -1,9 +1,11 @@
-import { useEffect, useState, useCallback } from "react"
+import { useEffect, useState, useCallback, useRef } from "react"
 import Icon from "@components/common/Icon"
 import { HERO, STATUS_PANEL, META } from "@/data"
 
 export default function Hero() {
   const [clock, setClock] = useState("—")
+  const [clockHovered, setClockHovered] = useState(false)
+  const clockRef = useRef<HTMLSpanElement>(null)
 
   useEffect(() => {
     const tick = () => {
@@ -12,12 +14,13 @@ export default function Hero() {
       const local = new Date(utc - 6 * 3600000)
       const hh = String(local.getHours()).padStart(2, "0")
       const mm = String(local.getMinutes()).padStart(2, "0")
-      setClock(`${hh}:${mm}`)
+      const ss = String(local.getSeconds()).padStart(2, "0")
+      setClock(clockHovered ? `${hh}:${mm}:${ss}` : `${hh}:${mm}`)
     }
     tick()
-    const id = setInterval(tick, 15000)
+    const id = setInterval(tick, clockHovered ? 1000 : 15000)
     return () => clearInterval(id)
-  }, [])
+  }, [clockHovered])
 
   const go = useCallback((id: string) => {
     const el = document.getElementById(id)
@@ -63,11 +66,30 @@ export default function Hero() {
           </div>
           <div className="panel-body">
             {STATUS_PANEL.rows.map((row, i) => (
-              <div className="stat-row" key={i}>
+              <div
+                className="stat-row"
+                key={i}
+                {...(row.value === "clock" ? {
+                  onMouseEnter: () => setClockHovered(true),
+                  onMouseLeave: () => setClockHovered(false),
+                  style: { cursor: "default" },
+                  title: "Hover to see seconds",
+                } : {})}
+              >
                 <span className="k">{row.label}</span>
                 <span className="v">
                   {row.highlight && <span className="avail-dot" />}
-                  <span className={row.highlight ? "live" : ""}>
+                  <span
+                    ref={row.value === "clock" ? clockRef : undefined}
+                    className={[
+                      row.highlight ? "live" : "",
+                      row.value === "clock" ? "clock-val" : "",
+                    ].filter(Boolean).join(" ")}
+                    style={row.value === "clock" ? {
+                      fontVariantNumeric: "tabular-nums",
+                      transition: "opacity 0.15s",
+                    } : undefined}
+                  >
                     {row.value === "clock" ? clock : row.value}
                   </span>
                 </span>
